@@ -7,12 +7,25 @@ test("has title", async ({ page }) => {
   await expect(page).toHaveTitle(/Create Next App/);
 });
 
-test("get started link", async ({ page }) => {
-  await page.goto("/");
+test("navigate to PC learning page", async ({ page }) => {
+  await page.goto("/pc");
 
-  // Click the get started link.
-  await page.getByRole("link", { name: "Deploy now" }).click();
+  // Check if PC learning page loads correctly
+  await expect(page.getByRole("heading", { name: "はじめてのパソコン" })).toBeVisible();
+  await expect(page.getByText("パソコンってなにかな？いっしょにまなぼう！")).toBeVisible();
+});
 
-  // Expects page to have a heading with the name of Installation.
-  await expect(page).toHaveURL(/.*vercel.com.*/);
+test("PC learning navigation works", async ({ page }) => {
+  await page.goto("/pc");
+
+  // Check if navigation buttons are present
+  const prevButton = page.getByRole("button", { name: "← まえへ" });
+  const nextButton = page.getByRole("button", { name: "つぎへ →" });
+
+  await expect(prevButton).toBeVisible();
+  await expect(nextButton).toBeVisible();
+
+  // First step should disable prev button
+  await expect(prevButton).toBeDisabled();
+  await expect(nextButton).toBeEnabled();
 });
