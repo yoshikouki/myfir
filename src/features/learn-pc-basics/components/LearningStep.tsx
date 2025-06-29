@@ -4,6 +4,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { useState } from "react";
 import { pcParts } from "../data";
 import { InteractiveDemo } from "./InteractiveDemo";
+import { MouseFriendGame } from "./MouseFriendGame";
 import { PCPartCard } from "./PCPartCard";
 
 interface LearningStepProps {
@@ -162,6 +163,13 @@ export function LearningStep({
         <div className="space-y-8">
           <InteractiveDemo type="mouse" onComplete={() => setShowParts(true)} />
           {showParts && <InteractiveDemo type="keyboard" onComplete={() => onComplete?.()} />}
+        </div>
+      )}
+
+      {/* マウスと仲良くなろうゲーム */}
+      {stepId === "mouse-friend" && (
+        <div className="mt-8">
+          <MouseFriendGame onComplete={() => onComplete?.()} />
         </div>
       )}
     </motion.div>
