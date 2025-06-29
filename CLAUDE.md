@@ -2,6 +2,36 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+## Project Overview
+
+**MyFir (初めての〜〜)** is an interactive learning platform for children aged 3-6, focusing on "first-time" experiences with various concepts and technologies.
+
+### Target Audience
+- **Primary**: Children aged 3-6 years
+- **Secondary**: Parents/guardians (co-learning experience)
+
+### Content Philosophy
+- **Visual Learning**: Colorful, intuitive design with large, friendly UI elements
+- **Progressive Learning**: Step-by-step content that builds understanding
+- **Accessibility**: Child-friendly interfaces with simple interactions
+- **Parent Guidance**: Features to help parents guide their children
+
+### Current Content Series
+
+#### 1. First PC Experience (`/pc`)
+Located at `src/features/learn-pc-basics/`
+- Introduces basic computer components
+- Mouse and keyboard usage
+- Screen navigation and basic operations
+- Uses hiragana and simple kanji for text
+
+### Development Notes
+- Use child-friendly language (hiragana preferred)
+- Large touch targets (minimum 44px)
+- High contrast colors for visibility
+- Sound feedback for interactions (when applicable)
+- Error states should be encouraging, not punitive
+
 ## Common Development Commands
 
 ### Development & Build
