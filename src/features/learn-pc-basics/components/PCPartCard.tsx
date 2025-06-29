@@ -9,6 +9,7 @@ interface PCPartCardProps {
 export function PCPartCard({ part, onClick, isActive = false }: PCPartCardProps) {
   return (
     <button
+      type="button"
       onClick={onClick}
       className={`
         relative overflow-hidden rounded-2xl p-6 transition-all duration-300
