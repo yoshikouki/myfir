@@ -44,6 +44,22 @@ This project includes comprehensive testing setup:
 - **Husky** for pre-commit hooks
 - **shadcn/ui** for UI components
 
+## CI/CD
+
+### Continuous Integration
+- **GitHub Actions** workflows for automated testing
+- Runs on every push and pull request to main branch
+- Jobs include:
+  - Linting and type checking
+  - Unit tests with coverage reporting
+  - Build verification
+  - E2E tests across multiple browsers
+
+### Dependency Management
+- Automated weekly dependency updates via GitHub Actions
+- Creates pull requests with updated dependencies
+- Runs full test suite to ensure compatibility
+
 ## Learn More
 
 To learn more about Next.js, take a look at the following resources:

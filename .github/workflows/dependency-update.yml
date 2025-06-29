@@ -1,0 +1,63 @@
+name: Dependency Update
+
+on:
+  schedule:
+    # Run every Monday at 9:00 AM JST (00:00 UTC)
+    - cron: "0 0 * * 1"
+  workflow_dispatch: # Allow manual trigger
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  update-dependencies:
+    name: Update Dependencies
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+
+      - name: Install dependencies
+        run: bun install --frozen-lockfile
+
+      - name: Update dependencies
+        run: bun update --latest
+
+      - name: Run tests
+        run: |
+          bun run lint
+          bun run typecheck
+          bun run test
+
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v7
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: "chore: update dependencies"
+          title: "🔄 Weekly dependency updates"
+          body: |
+            ## Dependency Updates
+
+            This PR contains the latest dependency updates.
+
+            ### Changes
+            - Updated all dependencies to their latest versions
+            - All tests are passing
+
+            ### Testing
+            - ✅ Lint checks passed
+            - ✅ Type checks passed
+            - ✅ Unit tests passed
+
+            ---
+            🤖 This PR was created automatically by the dependency update workflow.
+          branch: dependency-updates
+          delete-branch: true
