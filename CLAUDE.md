@@ -261,5 +261,17 @@ const helpfulMessage = "ちがう みちを えらんでみよう";
 - 例: `knowledge-child-ux.md`, `knowledge-accessibility.md`
 
 ### Current Knowledge Base
-- `docs/comprehensive-analysis.md` - 子ども向けPC学習コンテンツの包括的分析
-- `docs/content-validation-report.md` - 既存コンテンツの検証結果と改善提案
+
+**📁 体系化されたドキュメント構成**
+- `docs/README.md` - ドキュメント全体の構成とナビゲーション
+- `docs/strategy/` - プロダクト戦略・実装計画
+- `docs/content-design/` - 教育コンテンツ設計・最適化  
+- `docs/technical/` - 技術アーキテクチャ・パフォーマンス
+- `docs/quality/` - 品質保証・テスト戦略
+- `docs/accessibility/` - アクセシビリティ・インクルーシブデザイン
+- `docs/business/` - ビジネスモデル・サービス設計
+- `docs/knowledge/` - 実践的知見・学習成果
+
+**🎯 重要な戦略文書**
+- `docs/strategy/myfir-master-strategy-2025.md` - 最重要：全体戦略とビジョン
+- `docs/strategy/implementation-roadmap-2025.md` - 36ヶ月実装計画
