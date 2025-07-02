@@ -68,7 +68,7 @@ const learningContents = [
     icon: FileText,
     href: "/scroll-book",
     color: "from-indigo-400 to-blue-500",
-    available: false,
+    available: true,
   },
   {
     id: "sound-player",
