@@ -77,7 +77,7 @@ const learningContents = [
     icon: Volume2,
     href: "/sound-player",
     color: "from-red-400 to-rose-500",
-    available: false,
+    available: true,
   },
   {
     id: "name-input",
