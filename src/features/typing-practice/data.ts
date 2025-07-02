@@ -1,6 +1,59 @@
 import type { TypingLesson } from "./types";
 
 export const typingLessons: TypingLesson[] = [
+  // 左手専用練習 (q,w,e,r,t,a,s,d,f,g,z,x,c,v,b)
+  {
+    id: "left-hand-basics",
+    title: "ひだりて れんしゅう",
+    description: "ひだりてだけで うってみよう",
+    targetText: "qwert asdfg zxcvb",
+    level: "beginner",
+    icon: "👈",
+  },
+  {
+    id: "left-hand-vowels",
+    title: "ひだりて ぼいん",
+    description: "ひだりてで あいうえおを うとう",
+    targetText: "a e a e a e",
+    level: "beginner",
+    icon: "🫷",
+  },
+  {
+    id: "left-hand-words",
+    title: "ひだりて たんご",
+    description: "ひだりてだけで たんごを つくろう",
+    targetText: "we weed test feed beef",
+    level: "intermediate",
+    icon: "🤚",
+  },
+
+  // 右手専用練習 (y,u,i,o,p,h,j,k,l,n,m)
+  {
+    id: "right-hand-basics",
+    title: "みぎて れんしゅう",
+    description: "みぎてだけで うってみよう",
+    targetText: "yuiop hjkl nm",
+    level: "beginner",
+    icon: "👉",
+  },
+  {
+    id: "right-hand-vowels",
+    title: "みぎて ぼいん",
+    description: "みぎてで いうおを うとう",
+    targetText: "i u o i u o",
+    level: "beginner",
+    icon: "🫸",
+  },
+  {
+    id: "right-hand-words",
+    title: "みぎて たんご",
+    description: "みぎてだけで たんごを つくろう",
+    targetText: "you him joy nun moon",
+    level: "intermediate",
+    icon: "✋",
+  },
+
+  // 基本のひらがな練習
   {
     id: "hiragana-a",
     title: "あいうえお",
@@ -57,6 +110,32 @@ export const typingLessons: TypingLesson[] = [
     level: "intermediate",
     icon: "✏️",
   },
+  // 両手連携練習
+  {
+    id: "both-hands-basic",
+    title: "りょうて れんしゅう",
+    description: "りょうてを つかって うとう",
+    targetText: "left right both hands type well",
+    level: "intermediate",
+    icon: "👐",
+  },
+  {
+    id: "both-hands-alternating",
+    title: "こうご れんしゅう",
+    description: "ひだりみぎ こうごに うとう",
+    targetText: "tea web red fun big joy",
+    level: "intermediate",
+    icon: "🔄",
+  },
+  {
+    id: "both-hands-smooth",
+    title: "なめらか タイピング",
+    description: "りょうてで なめらかに うとう",
+    targetText: "the quick brown fox jumps over the lazy dog",
+    level: "advanced",
+    icon: "🚀",
+  },
+
   {
     id: "numbers",
     title: "すうじ",

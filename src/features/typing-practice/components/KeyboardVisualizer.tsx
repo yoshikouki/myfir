@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 interface KeyboardVisualizerProps {
   pressedKey?: string;
   nextKey?: string;
+  highlightHand?: "left" | "right" | "both" | null;
 }
 
 const keyboardLayout = [
@@ -12,6 +13,51 @@ const keyboardLayout = [
   ["q", "w", "e", "r", "t", "y", "u", "i", "o", "p"],
   ["a", "s", "d", "f", "g", "h", "j", "k", "l"],
   ["z", "x", "c", "v", "b", "n", "m"],
+];
+
+// 左手担当キー (左から6つまで)
+const leftHandKeys = [
+  "1",
+  "2",
+  "3",
+  "4",
+  "5",
+  "q",
+  "w",
+  "e",
+  "r",
+  "t",
+  "a",
+  "s",
+  "d",
+  "f",
+  "g",
+  "z",
+  "x",
+  "c",
+  "v",
+  "b",
+];
+
+// 右手担当キー (右から5つまで)
+const rightHandKeys = [
+  "6",
+  "7",
+  "8",
+  "9",
+  "0",
+  "-",
+  "y",
+  "u",
+  "i",
+  "o",
+  "p",
+  "h",
+  "j",
+  "k",
+  "l",
+  "n",
+  "m",
 ];
 
 const hiraganaMap: Record<string, string> = {
@@ -63,11 +109,42 @@ const hiraganaMap: Record<string, string> = {
   n: "ん",
 };
 
-export function KeyboardVisualizer({ pressedKey, nextKey }: KeyboardVisualizerProps) {
+export function KeyboardVisualizer({
+  pressedKey,
+  nextKey,
+  highlightHand,
+}: KeyboardVisualizerProps) {
   const getKeyStatus = (key: string) => {
     if (pressedKey?.toLowerCase() === key) return "pressed";
     if (nextKey?.toLowerCase() === key) return "next";
     return "normal";
+  };
+
+  const getHandType = (key: string) => {
+    if (leftHandKeys.includes(key)) return "left";
+    if (rightHandKeys.includes(key)) return "right";
+    return "neutral";
+  };
+
+  const getKeyColorClass = (key: string, status: string) => {
+    const handType = getHandType(key);
+
+    if (status === "pressed") return "bg-blue-500 text-white shadow-sm";
+    if (status === "next") return "bg-yellow-300 ring-2 ring-yellow-500";
+
+    // 手のハイライト機能
+    if (highlightHand === "left" && handType === "left") {
+      return "bg-green-200 text-gray-800 ring-2 ring-green-400";
+    }
+    if (highlightHand === "right" && handType === "right") {
+      return "bg-blue-200 text-gray-800 ring-2 ring-blue-400";
+    }
+    if (highlightHand === "both") {
+      if (handType === "left") return "bg-green-100 text-gray-800 ring-1 ring-green-300";
+      if (handType === "right") return "bg-blue-100 text-gray-800 ring-1 ring-blue-300";
+    }
+
+    return "bg-white text-gray-700";
   };
 
   return (
@@ -87,7 +164,7 @@ export function KeyboardVisualizer({ pressedKey, nextKey }: KeyboardVisualizerPr
                     scale: status === "pressed" ? 0.9 : 1,
                     y: status === "pressed" ? 2 : 0,
                   }}
-                  className={`relative flex h-12 w-12 items-center justify-center rounded-lg font-bold text-lg shadow-md transition-all ${status === "pressed" ? "bg-blue-500 text-white shadow-sm" : ""} ${status === "next" ? "bg-yellow-300 ring-2 ring-yellow-500" : ""} ${status === "normal" ? "bg-white text-gray-700" : ""} `}
+                  className={`relative flex h-12 w-12 items-center justify-center rounded-lg font-bold text-lg shadow-md transition-all ${getKeyColorClass(key, status)}`}
                 >
                   <span className="text-base">{key.toUpperCase()}</span>
                   {Object.entries(hiraganaMap).find(([romaji]) => romaji === key)?.[1] && (
@@ -108,7 +185,7 @@ export function KeyboardVisualizer({ pressedKey, nextKey }: KeyboardVisualizerPr
               scale: pressedKey === " " ? 0.95 : 1,
               y: pressedKey === " " ? 2 : 0,
             }}
-            className={`flex h-12 w-64 items-center justify-center rounded-lg font-bold shadow-md transition-all ${pressedKey === " " ? "bg-blue-500 text-white shadow-sm" : ""} ${nextKey === " " ? "bg-yellow-300 ring-2 ring-yellow-500" : ""} ${pressedKey !== " " && nextKey !== " " ? "bg-white text-gray-700" : ""} `}
+            className={`flex h-12 w-64 items-center justify-center rounded-lg font-bold shadow-md transition-all ${getKeyColorClass(" ", pressedKey === " " ? "pressed" : nextKey === " " ? "next" : "normal")}`}
           >
             スペース
           </motion.div>

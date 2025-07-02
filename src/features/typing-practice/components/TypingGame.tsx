@@ -28,6 +28,14 @@ export function TypingGame({ lesson, onComplete, onBack }: TypingGameProps) {
   const currentChar = targetText[currentIndex];
   const progress = (currentIndex / targetText.length) * 100;
 
+  // レッスンタイプに基づいて手のハイライトを決定
+  const getHandHighlight = (): "left" | "right" | "both" | null => {
+    if (lesson.id.includes("left-hand")) return "left";
+    if (lesson.id.includes("right-hand")) return "right";
+    if (lesson.id.includes("both-hands")) return "both";
+    return null;
+  };
+
   const handleKeyPress = useCallback(
     (e: KeyboardEvent) => {
       if (isCompleted) return;
@@ -221,7 +229,11 @@ export function TypingGame({ lesson, onComplete, onBack }: TypingGameProps) {
             animate={{ opacity: 1 }}
             transition={{ delay: 0.2 }}
           >
-            <KeyboardVisualizer pressedKey={lastPressedKey} nextKey={currentChar} />
+            <KeyboardVisualizer
+              pressedKey={lastPressedKey}
+              nextKey={currentChar}
+              highlightHand={getHandHighlight()}
+            />
           </motion.div>
         )}
 
@@ -237,6 +249,13 @@ export function TypingGame({ lesson, onComplete, onBack }: TypingGameProps) {
             <li>⌨️ キーボードの きいろい キーを おしてね</li>
             <li>👀 がめんを みながら ゆっくり うとう</li>
             <li>🎯 まちがえても だいじょうぶ！ つづけて うとう</li>
+            {getHandHighlight() === "left" && (
+              <li>👈 みどりいろの キーだけ つかうよ（ひだりて）</li>
+            )}
+            {getHandHighlight() === "right" && (
+              <li>👉 あおいろの キーだけ つかうよ（みぎて）</li>
+            )}
+            {getHandHighlight() === "both" && <li>👐 りょうてを つかって うとう</li>}
           </ul>
         </motion.div>
       </main>
