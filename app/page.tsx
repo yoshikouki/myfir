@@ -1,18 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import {
-  FileText,
-  Gamepad2,
-  Hand,
-  Image,
-  Keyboard,
-  Monitor,
-  Mouse,
-  Play,
-  Star,
-  Volume2,
-} from "lucide-react";
+import { FileText, Gamepad2, Hand, Keyboard, Monitor, Mouse } from "lucide-react";
 import Link from "next/link";
 
 const learningContents = [
@@ -69,42 +58,6 @@ const learningContents = [
     href: "/scroll-book",
     color: "from-indigo-400 to-blue-500",
     available: true,
-  },
-  {
-    id: "sound-player",
-    title: "がっきを ならそう",
-    description: "おとや どうがを さいせい",
-    icon: Volume2,
-    href: "/sound-player",
-    color: "from-red-400 to-rose-500",
-    available: true,
-  },
-  {
-    id: "name-input",
-    title: "なまえを いれよう",
-    description: "じぶんの なまえを タイプ",
-    icon: Star,
-    href: "/name-input",
-    color: "from-cyan-400 to-teal-500",
-    available: false,
-  },
-  {
-    id: "window-control",
-    title: "おへやを きりかえよう",
-    description: "ウィンドウを つかいこなそう",
-    icon: Play,
-    href: "/window-control",
-    color: "from-orange-400 to-amber-500",
-    available: false,
-  },
-  {
-    id: "photo-gallery",
-    title: "しゃしんを せいりしよう",
-    description: "ファイルの つかいかた",
-    icon: Image,
-    href: "/photo-gallery",
-    color: "from-teal-400 to-green-500",
-    available: false,
   },
 ];
 
