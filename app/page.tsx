@@ -155,21 +155,6 @@ export default function Home() {
               );
             })}
           </div>
-
-          {/* 総合学習へのリンク */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.8 }}
-            className="mt-12 text-center"
-          >
-            <div className="inline-block rounded-full bg-gradient-to-r from-purple-500 to-pink-500 p-1">
-              <div className="rounded-full bg-white px-8 py-4">
-                <p className="font-bold text-gray-800 text-lg">ぜんぶ できたら...</p>
-                <p className="mt-1 text-gray-600">「PCマスターへの みち」に ちょうせん！</p>
-              </div>
-            </div>
-          </motion.div>
         </div>
       </main>
 

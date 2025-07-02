@@ -71,8 +71,27 @@ export function TypingGame({ lesson, onComplete, onBack }: TypingGameProps) {
   );
 
   useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      // keydownイベントからkeypressと同様の処理を実行
+      if (e.key.length === 1) {
+        // 印刷可能文字のみ
+        handleKeyPress(e);
+      }
+    };
+
+    // フォーカスを確保
+    document.body.focus();
+    document.body.tabIndex = -1;
+
+    // keydownとkeypressの両方をサポート
+    window.addEventListener("keydown", handleKeyDown);
     window.addEventListener("keypress", handleKeyPress);
-    return () => window.removeEventListener("keypress", handleKeyPress);
+
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+      window.removeEventListener("keypress", handleKeyPress);
+      document.body.removeAttribute("tabindex");
+    };
   }, [handleKeyPress]);
 
   const handleReset = () => {
@@ -87,8 +106,18 @@ export function TypingGame({ lesson, onComplete, onBack }: TypingGameProps) {
     });
   };
 
+  const handlePageClick = () => {
+    // ページクリック時にフォーカスを確保
+    document.body.focus();
+  };
+
   return (
-    <div className="min-h-screen bg-gradient-to-br from-green-50 via-blue-50 to-purple-50">
+    <div
+      className="min-h-screen bg-gradient-to-br from-green-50 via-blue-50 to-purple-50"
+      onClick={handlePageClick}
+      onKeyDown={handlePageClick}
+      tabIndex={-1}
+    >
       {/* ヘッダー */}
       <header className="bg-white shadow-lg">
         <div className="mx-auto max-w-7xl px-4 py-4">

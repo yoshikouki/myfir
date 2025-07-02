@@ -71,7 +71,10 @@ export function KeyboardVisualizer({ pressedKey, nextKey }: KeyboardVisualizerPr
   };
 
   return (
-    <div className="mx-auto max-w-2xl rounded-2xl bg-gray-100 p-6 shadow-inner">
+    <div
+      className="mx-auto max-w-2xl rounded-2xl bg-gray-100 p-6 shadow-inner"
+      data-testid="keyboard-visualizer"
+    >
       <div className="space-y-2">
         {keyboardLayout.map((row, rowIndex) => (
           <div key={`row-${rowIndex}`} className="flex justify-center gap-2">
