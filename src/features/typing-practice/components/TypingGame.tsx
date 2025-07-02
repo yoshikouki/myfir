@@ -24,9 +24,11 @@ export function TypingGame({ lesson, onComplete, onBack }: TypingGameProps) {
   });
   const [lastPressedKey, setLastPressedKey] = useState<string | undefined>();
 
-  const targetText = lesson.targetText;
-  const currentChar = targetText[currentIndex];
-  const progress = (currentIndex / targetText.length) * 100;
+  // ローマ字テキストがある場合はそれを使用、なければ通常のテキスト
+  const inputText = lesson.romajiText || lesson.targetText;
+  const displayText = lesson.targetText; // 表示用は常にひらがな
+  const currentChar = inputText[currentIndex];
+  const progress = (currentIndex / inputText.length) * 100;
 
   // 初期状態でスペースがある場合は自動的にスキップ
   useEffect(() => {
@@ -34,7 +36,7 @@ export function TypingGame({ lesson, onComplete, onBack }: TypingGameProps) {
     let updatedTypedText = typedText;
 
     // 現在位置から連続するスペースをすべてスキップ
-    while (nextIndex < targetText.length && targetText[nextIndex] === " ") {
+    while (nextIndex < inputText.length && inputText[nextIndex] === " ") {
       updatedTypedText += " ";
       nextIndex++;
     }
@@ -43,7 +45,7 @@ export function TypingGame({ lesson, onComplete, onBack }: TypingGameProps) {
       setTypedText(updatedTypedText);
       setCurrentIndex(nextIndex);
     }
-  }, [currentIndex, targetText, typedText]);
+  }, [currentIndex, inputText, typedText]);
 
   // レッスンタイプに基づいて手のハイライトを決定
   const getHandHighlight = (): "left" | "right" | "both" | null => {
@@ -69,7 +71,7 @@ export function TypingGame({ lesson, onComplete, onBack }: TypingGameProps) {
       let updatedTypedText = typedText;
 
       // 現在位置から連続するスペースをすべてスキップ
-      while (nextIndex < targetText.length && targetText[nextIndex] === " ") {
+      while (nextIndex < inputText.length && inputText[nextIndex] === " ") {
         updatedTypedText += " ";
         nextIndex++;
       }
@@ -91,7 +93,7 @@ export function TypingGame({ lesson, onComplete, onBack }: TypingGameProps) {
         setCurrentIndex((prev) => prev + 1);
 
         // 完了チェック
-        if (currentIndex + 1 >= targetText.length) {
+        if (currentIndex + 1 >= inputText.length) {
           setIsCompleted(true);
           const completionTime = Date.now() - (startTime || Date.now());
           newStats.completionTime = completionTime;
@@ -114,7 +116,7 @@ export function TypingGame({ lesson, onComplete, onBack }: TypingGameProps) {
       isCompleted,
       startTime,
       stats,
-      targetText,
+      inputText,
       onComplete,
       typedText,
     ],
@@ -218,7 +220,12 @@ export function TypingGame({ lesson, onComplete, onBack }: TypingGameProps) {
           {/* ターゲットテキスト */}
           <div className="mb-6 text-center">
             <p className="mb-2 font-bold text-gray-600 text-lg">つぎの もじを うとう：</p>
-            <div className="font-mono text-4xl">
+
+            {/* ひらがな表示 */}
+            <div className="mb-4 font-bold text-3xl text-gray-800">{displayText}</div>
+
+            {/* ローマ字入力表示 */}
+            <div className="font-mono text-2xl">
               <span className="text-green-600">{typedText}</span>
               <AnimatePresence mode="wait">
                 {!isCompleted && (
@@ -226,14 +233,20 @@ export function TypingGame({ lesson, onComplete, onBack }: TypingGameProps) {
                     key={currentIndex}
                     initial={{ scale: 1.5, opacity: 0 }}
                     animate={{ scale: 1, opacity: 1 }}
-                    className="text-blue-600 underline"
+                    className="rounded bg-yellow-100 px-1 text-blue-600 underline"
                   >
                     {currentChar}
                   </motion.span>
                 )}
               </AnimatePresence>
-              <span className="text-gray-400">{targetText.slice(currentIndex + 1)}</span>
+              <span className="text-gray-400">{inputText.slice(currentIndex + 1)}</span>
             </div>
+
+            {lesson.romajiText && (
+              <p className="mt-2 text-gray-500 text-sm">
+                ローマじで うとう: {lesson.romajiText}
+              </p>
+            )}
           </div>
 
           {/* 統計情報 */}
