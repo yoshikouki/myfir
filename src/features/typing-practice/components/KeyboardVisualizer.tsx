@@ -130,7 +130,8 @@ export function KeyboardVisualizer({
     const handType = getHandType(key);
 
     if (status === "pressed") return "bg-blue-500 text-white shadow-sm";
-    if (status === "next") return "bg-yellow-300 ring-2 ring-yellow-500";
+    if (status === "next")
+      return "bg-gradient-to-br from-yellow-400 to-orange-500 text-white font-bold ring-2 ring-orange-400 shadow-lg";
 
     // 手のハイライト機能
     if (highlightHand === "left" && handType === "left") {
@@ -161,8 +162,11 @@ export function KeyboardVisualizer({
                 <motion.div
                   key={key}
                   animate={{
-                    scale: status === "pressed" ? 0.9 : 1,
+                    scale: status === "pressed" ? 0.9 : status === "next" ? [1, 1.1, 1] : 1,
                     y: status === "pressed" ? 2 : 0,
+                  }}
+                  transition={{
+                    scale: status === "next" ? { repeat: Infinity, duration: 1.5 } : {},
                   }}
                   className={`relative flex h-12 w-12 items-center justify-center rounded-lg font-bold text-lg shadow-md transition-all ${getKeyColorClass(key, status)}`}
                 >
@@ -182,8 +186,11 @@ export function KeyboardVisualizer({
         <div className="flex justify-center pt-2">
           <motion.div
             animate={{
-              scale: pressedKey === " " ? 0.95 : 1,
+              scale: pressedKey === " " ? 0.95 : nextKey === " " ? [1, 1.05, 1] : 1,
               y: pressedKey === " " ? 2 : 0,
+            }}
+            transition={{
+              scale: nextKey === " " ? { repeat: Infinity, duration: 1.5 } : {},
             }}
             className={`flex h-12 w-64 items-center justify-center rounded-lg font-bold shadow-md transition-all ${getKeyColorClass(" ", pressedKey === " " ? "pressed" : nextKey === " " ? "next" : "normal")}`}
           >
@@ -193,7 +200,7 @@ export function KeyboardVisualizer({
       </div>
 
       <div className="mt-4 text-center text-gray-600 text-sm">
-        <p>きいろの キーを おしてね！</p>
+        <p>オレンジ色の キーを おしてね！</p>
       </div>
     </div>
   );
