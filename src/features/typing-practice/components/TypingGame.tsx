@@ -36,6 +36,19 @@ export function TypingGame({
   const currentChar = inputText[currentIndex];
   const progress = (currentIndex / inputText.length) * 100;
 
+  // レッスンが変わったら状態をリセット
+  // biome-ignore lint/correctness/useExhaustiveDependencies: レッスン変更時のリセットが必要
+  useEffect(() => {
+    setCurrentIndex(0);
+    setTypedText("");
+    setIsCompleted(false);
+    setStartTime(null);
+    setStats({
+      totalKeystrokes: 0,
+    });
+    setLastPressedKey(undefined);
+  }, [lesson.id]);
+
   // 初期状態でスペースがある場合は自動的にスキップ
   useEffect(() => {
     let nextIndex = currentIndex;
