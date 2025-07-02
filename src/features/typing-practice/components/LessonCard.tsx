@@ -10,12 +10,6 @@ interface LessonCardProps {
   isCompleted?: boolean;
 }
 
-const levelColors = {
-  beginner: "from-green-400 to-emerald-500",
-  intermediate: "from-yellow-400 to-orange-500",
-  advanced: "from-purple-400 to-pink-500",
-};
-
 const levelLabels = {
   beginner: "かんたん",
   intermediate: "ふつう",
@@ -31,40 +25,29 @@ export function LessonCard({ lesson, course, onSelect, isCompleted = false }: Le
       className="group relative w-full"
     >
       <div
-        className={`rounded-2xl bg-gradient-to-br ${levelColors[lesson.level]} p-1 shadow-lg transition-shadow hover:shadow-xl`}
+        className={`rounded-2xl bg-gradient-to-br ${course.color} p-1 shadow-lg transition-shadow hover:shadow-xl`}
       >
-        <div className="rounded-2xl bg-white p-6">
+        <div className="rounded-2xl bg-white p-6 text-center">
           {/* 完了マーク */}
           {isCompleted && (
-            <div className="-top-2 -right-2 absolute flex h-8 w-8 items-center justify-center rounded-full bg-green-500 text-white">
+            <div className="-top-3 -right-3 absolute flex h-10 w-10 items-center justify-center rounded-full bg-green-500 text-white text-xl shadow-lg">
               ✓
             </div>
           )}
 
-          {/* アイコン */}
-          <div className="mb-3 text-4xl">{lesson.icon}</div>
+          {/* 大きなアイコン */}
+          <div className="mb-4 text-6xl">{lesson.icon}</div>
 
-          {/* コース名 */}
-          <div className="mb-2 flex items-center gap-2">
-            <span className="font-medium text-gray-500 text-sm">{course.title}</span>
-            <span className="text-gray-300">・</span>
-            <span
-              className={`inline-block rounded-full bg-gradient-to-r ${levelColors[lesson.level]} px-2 py-1 font-bold text-white text-xs`}
-            >
-              {levelLabels[lesson.level]}
-            </span>
-          </div>
+          {/* コース名 + 難易度 */}
+          <h3 className="mb-2 font-bold text-2xl text-gray-800">
+            {course.title} ({levelLabels[lesson.level]})
+          </h3>
 
-          {/* タイトル */}
-          <h3 className="mb-1 font-bold text-gray-800 text-lg">{lesson.title}</h3>
-
-          {/* 説明 */}
-          <p className="mb-3 text-gray-600 text-sm">{lesson.description}</p>
+          {/* レッスン名 */}
+          <p className="mb-3 font-medium text-gray-600 text-lg">{lesson.title}</p>
 
           {/* プレビューテキスト */}
-          <div className="mt-3 rounded-lg bg-gray-100 p-2">
-            <p className="font-mono text-gray-700 text-sm">{lesson.targetText}</p>
-          </div>
+          <p className="font-mono text-base text-gray-500">{lesson.targetText}</p>
         </div>
       </div>
     </motion.button>

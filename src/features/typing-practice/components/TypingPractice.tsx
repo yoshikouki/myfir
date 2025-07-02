@@ -79,27 +79,17 @@ export function TypingPractice() {
 
       {/* メインコンテンツ */}
       <main className="mx-auto max-w-7xl p-4">
-        {/* 説明 */}
+        {/* シンプルな説明 */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="mb-8 rounded-2xl bg-white p-6 shadow-lg"
+          className="mb-8 text-center"
         >
-          <h2 className="mb-4 font-bold text-2xl text-gray-800">
-            どの れんしゅうから はじめる？
-          </h2>
-          <p className="mb-4 text-gray-700 text-lg">
-            すきな もじを えらんで、たのしく タイピングを おぼえよう！
-          </p>
-          <div className="rounded-xl bg-gradient-to-r from-green-100 to-blue-100 p-4">
-            <p className="text-gray-700">
-              🎯 むずかしさを えらんで、じぶんに あった れんしゅうを しよう！
-            </p>
-          </div>
+          <h2 className="mb-6 font-bold text-3xl text-gray-800">どれから はじめる？</h2>
         </motion.div>
 
         {/* レッスン一覧 */}
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
           {typingLessons.map((lesson, index) => {
             const course = typingCourses.find((c) => c.id === lesson.courseId);
             if (!course) return null;
