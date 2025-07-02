@@ -41,7 +41,7 @@ const learningContents = [
     icon: Keyboard,
     href: "/typing",
     color: "from-green-400 to-emerald-500",
-    available: false,
+    available: true,
   },
   {
     id: "drag-drop",

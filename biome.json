@@ -30,6 +30,9 @@
         "noUnusedVariables": {
           "level": "warn"
         }
+      },
+      "suspicious": {
+        "noArrayIndexKey": "off"
       }
     }
   },
