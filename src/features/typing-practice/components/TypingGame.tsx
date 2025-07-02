@@ -300,28 +300,41 @@ export function TypingGame({
             </div>
           </div>
 
-          {/* 統計情報 - シンプルに */}
-          <div className="mb-6 flex justify-center">
-            <div className="text-center">
-              <p className="text-gray-600">うった もじ</p>
-              <p className="font-bold text-2xl text-blue-600">{stats.totalKeystrokes}</p>
-            </div>
+          {/* リザルト画面 - 常に領域確保 */}
+          <div className="mb-6 flex min-h-[140px] items-center justify-center">
+            <AnimatePresence mode="wait">
+              {!isCompleted ? (
+                /* 進行中の統計情報 */
+                <motion.div
+                  key="progress"
+                  initial={{ opacity: 1 }}
+                  exit={{ opacity: 0, scale: 0.9 }}
+                  className="text-center"
+                >
+                  <p className="text-gray-600">うった もじ</p>
+                  <p className="font-bold text-2xl text-blue-600">{stats.totalKeystrokes}</p>
+                </motion.div>
+              ) : (
+                /* 完了リザルト */
+                <motion.div
+                  key="result"
+                  initial={{ scale: 0, opacity: 0 }}
+                  animate={{ scale: 1, opacity: 1 }}
+                  transition={{ delay: 0.1 }}
+                  className="w-full rounded-2xl bg-gradient-to-r from-yellow-400 to-orange-500 p-6 text-center text-white"
+                >
+                  <Trophy className="mx-auto mb-2 size-12" />
+                  <p className="font-bold text-2xl">よくできました！</p>
+                  <p className="mt-2">
+                    じかん: {Math.round((stats.completionTime || 0) / 1000)}びょう
+                  </p>
+                  <p className="mt-1 text-sm opacity-90">
+                    うった もじ: {stats.totalKeystrokes}
+                  </p>
+                </motion.div>
+              )}
+            </AnimatePresence>
           </div>
-
-          {/* 完了メッセージ */}
-          {isCompleted && (
-            <motion.div
-              initial={{ scale: 0, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              className="mb-6 rounded-2xl bg-gradient-to-r from-yellow-400 to-orange-500 p-6 text-center text-white"
-            >
-              <Trophy className="mx-auto mb-2 size-12" />
-              <p className="font-bold text-2xl">よくできました！</p>
-              <p className="mt-2">
-                じかん: {Math.round((stats.completionTime || 0) / 1000)}びょう
-              </p>
-            </motion.div>
-          )}
         </motion.div>
 
         {/* キーボード表示 */}
