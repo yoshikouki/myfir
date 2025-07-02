@@ -6,11 +6,12 @@ import { useCallback, useEffect, useState } from "react";
 import { LevelUpModal } from "@/src/components/ui/LevelUpModal";
 import { PlayerLevel } from "@/src/components/ui/PlayerLevel";
 import { completeActivity } from "@/src/lib/level-system";
-import type { TypingLesson, TypingStats } from "../types";
+import type { TypingCourse, TypingLesson, TypingStats } from "../types";
 import { KeyboardVisualizer } from "./KeyboardVisualizer";
 
 interface TypingGameProps {
   lesson: TypingLesson;
+  course: TypingCourse;
   onComplete: (stats: TypingStats) => void;
   onBack: () => void;
   onNext?: () => void; // 次のレッスンに進む関数
@@ -19,6 +20,7 @@ interface TypingGameProps {
 
 export function TypingGame({
   lesson,
+  course,
   onComplete,
   onBack,
   onNext,
@@ -224,7 +226,7 @@ export function TypingGame({
                 <Home className="size-5" />
                 <span>もどる</span>
               </motion.button>
-              <h1 className="font-bold text-2xl text-gray-800 sm:text-3xl">{lesson.title}</h1>
+              <h1 className="font-bold text-2xl text-gray-800 sm:text-3xl">{course.title}</h1>
             </div>
 
             <div className="flex items-center gap-4">

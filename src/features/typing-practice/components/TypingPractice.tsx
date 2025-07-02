@@ -66,9 +66,19 @@ export function TypingPractice() {
     const currentIndex = courseLessons.findIndex((lesson) => lesson.id === selectedLesson.id);
     const isLastLesson = currentIndex === courseLessons.length - 1;
 
+    // 現在のレッスンが属するコースを取得
+    const currentCourse = typingCourses.find((course) => course.id === selectedLesson.courseId);
+
+    if (!currentCourse) {
+      // コースが見つからない場合はコース一覧に戻る
+      setSelectedLesson(null);
+      return null;
+    }
+
     return (
       <TypingGame
         lesson={selectedLesson}
+        course={currentCourse}
         onComplete={handleLessonComplete}
         onBack={handleBack}
         onNext={handleNext}
