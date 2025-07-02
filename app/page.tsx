@@ -32,7 +32,7 @@ const learningContents = [
     icon: Mouse,
     href: "/mouse-drawing",
     color: "from-pink-400 to-purple-500",
-    available: false,
+    available: true,
   },
   {
     id: "typing",
