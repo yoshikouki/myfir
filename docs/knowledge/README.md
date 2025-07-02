@@ -4,14 +4,38 @@
 
 ## 📋 収録文書
 
-### 🖱️ [knowledge-mouse-learning.md](./knowledge-mouse-learning.md)
+### 🏆 **重要ガイド** (実証済み知見)
+
+#### 🎯 [child-ux-flow-optimization.md](./child-ux-flow-optimization.md) ⭐
+**UXフロー最適化の完全ガイド**
+- タップ数削減の劇的効果 (3→2タップ)
+- 全画面モーダル→コンパクト通知の改善
+- コース境界を守るナビゲーション設計
+- 実装パターンと効果測定
+
+#### 💎 [successful-ux-patterns.md](./successful-ux-patterns.md)
+**成功したUXパターン集**
+- 2タップルールの実装例
+- 非侵入的フィードバック設計
+- 情報統合表示のベストプラクティス
+- 子ども向けUI/レスポンシブ設計
+
+#### 🔥 [child-ux-tap-reduction.md](./child-ux-tap-reduction.md)
+**タップ数削減の知見**
+- 3-6歳児の集中力と操作回数の関係
+- 2タップフロー設計の効果
+- 実装方針と改善結果
+
+### 📚 **基礎知見**
+
+#### 🖱️ [knowledge-mouse-learning.md](./knowledge-mouse-learning.md)
 **マウス操作学習の知見**
 - 3-6歳児の操作特性分析
 - インタラクションデザイン知見
 - 段階的学習設計の効果
 - 技術的実装ノウハウ
 
-### 💻 [pc-learning-content.md](./pc-learning-content.md)
+#### 💻 [pc-learning-content.md](./pc-learning-content.md)
 **PC学習コンテンツ分析**
 - 既存コンテンツの教育的価値
 - 子ども向け配慮の実装例
