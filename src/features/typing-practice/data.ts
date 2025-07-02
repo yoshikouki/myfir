@@ -1,56 +1,26 @@
 import type { TypingLesson } from "./types";
 
 export const typingLessons: TypingLesson[] = [
-  // 左手専用練習 (q,w,e,r,t,a,s,d,f,g,z,x,c,v,b)
-  {
-    id: "left-hand-basics",
-    title: "ひだりて れんしゅう",
-    description: "ひだりてだけで うってみよう",
-    targetText: "qwert asdfg zxcvb",
-    level: "beginner",
-    icon: "👈",
-  },
+  // 左手専用練習 - 5歳向けひらがな
   {
     id: "left-hand-vowels",
-    title: "ひだりて ぼいん",
-    description: "ひだりてで あいうえおを うとう",
-    targetText: "a e a e a e",
+    title: "ひだりて あえ",
+    description: "ひだりてで あ と え を うとう",
+    targetText: "あ え あ え",
+    romajiText: "a e a e",
     level: "beginner",
     icon: "🫷",
   },
-  {
-    id: "left-hand-words",
-    title: "ひだりて たんご",
-    description: "ひだりてだけで たんごを つくろう",
-    targetText: "we weed test feed beef",
-    level: "intermediate",
-    icon: "🤚",
-  },
 
-  // 右手専用練習 (y,u,i,o,p,h,j,k,l,n,m)
-  {
-    id: "right-hand-basics",
-    title: "みぎて れんしゅう",
-    description: "みぎてだけで うってみよう",
-    targetText: "yuiop hjkl nm",
-    level: "beginner",
-    icon: "👉",
-  },
+  // 右手専用練習 - 5歳向けひらがな
   {
     id: "right-hand-vowels",
-    title: "みぎて ぼいん",
-    description: "みぎてで いうおを うとう",
-    targetText: "i u o i u o",
+    title: "みぎて いうお",
+    description: "みぎてで い う お を うとう",
+    targetText: "い う お い う お",
+    romajiText: "i u o i u o",
     level: "beginner",
     icon: "🫸",
-  },
-  {
-    id: "right-hand-words",
-    title: "みぎて たんご",
-    description: "みぎてだけで たんごを つくろう",
-    targetText: "you him joy nun moon",
-    level: "intermediate",
-    icon: "✋",
   },
 
   // 基本のひらがな練習
@@ -109,64 +79,31 @@ export const typingLessons: TypingLesson[] = [
     icon: "🙏",
   },
   {
-    id: "name",
-    title: "なまえ",
-    description: "じぶんの なまえを かこう",
-    targetText: "わたしのなまえ",
-    romajiText: "watashinonamae",
+    id: "mama",
+    title: "ママ",
+    description: "ママ って うとう",
+    targetText: "ママ",
+    romajiText: "mama",
     level: "intermediate",
-    icon: "✏️",
+    icon: "👩",
   },
-  // 両手連携練習
+  // 両手連携練習 - 5歳向けひらがな
   {
-    id: "both-hands-basic",
-    title: "りょうて れんしゅう",
-    description: "りょうてを つかって うとう",
-    targetText: "left right both hands type well",
+    id: "both-hands-aiueo",
+    title: "りょうて あいうえお",
+    description: "りょうてで あいうえお を うとう",
+    targetText: "あいうえお",
+    romajiText: "aiueo",
     level: "intermediate",
     icon: "👐",
-  },
-  {
-    id: "both-hands-alternating",
-    title: "こうご れんしゅう",
-    description: "ひだりみぎ こうごに うとう",
-    targetText: "tea web red fun big joy",
-    level: "intermediate",
-    icon: "🔄",
-  },
-  {
-    id: "both-hands-smooth",
-    title: "なめらか タイピング",
-    description: "りょうてで なめらかに うとう",
-    targetText: "the quick brown fox jumps over the lazy dog",
-    level: "advanced",
-    icon: "🚀",
   },
 
   {
     id: "numbers",
     title: "すうじ",
-    description: "すうじを うとう",
-    targetText: "1 2 3 4 5",
-    level: "intermediate",
+    description: "かんたんな すうじを うとう",
+    targetText: "1 2 3",
+    level: "beginner",
     icon: "🔢",
-  },
-  {
-    id: "days",
-    title: "ようび",
-    description: "いっしゅうかんの ようびを うとう",
-    targetText: "げつようび",
-    romajiText: "getsuyoubi",
-    level: "advanced",
-    icon: "📅",
-  },
-  {
-    id: "sentence",
-    title: "ぶんしょう",
-    description: "みじかい ぶんを うとう",
-    targetText: "きょうは いいてんき",
-    romajiText: "kyouha iitenki",
-    level: "advanced",
-    icon: "📝",
   },
 ];
