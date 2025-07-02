@@ -50,7 +50,7 @@ const learningContents = [
     icon: Hand,
     href: "/drag-drop",
     color: "from-yellow-400 to-orange-500",
-    available: false,
+    available: true,
   },
   {
     id: "click-game",
