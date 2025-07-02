@@ -3,7 +3,7 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { Home, RotateCcw, Trophy } from "lucide-react";
 import { useCallback, useEffect, useState } from "react";
-import { LevelUpModal } from "@/src/components/ui/LevelUpModal";
+import { LevelUpNotification } from "@/src/components/ui/LevelUpNotification";
 import { PlayerLevel } from "@/src/components/ui/PlayerLevel";
 import { completeActivity } from "@/src/lib/level-system";
 import type { TypingCourse, TypingLesson, TypingStats } from "../types";
@@ -34,7 +34,7 @@ export function TypingGame({
     totalKeystrokes: 0,
   });
   const [lastPressedKey, setLastPressedKey] = useState<string | undefined>();
-  const [showLevelUp, setShowLevelUp] = useState(false);
+  const [showLevelUpNotification, setShowLevelUpNotification] = useState(false);
   const [levelUpData, setLevelUpData] = useState<{ level: number; title: string } | null>(null);
 
   // ローマ字テキストがある場合はそれを使用、なければ通常のテキスト
@@ -54,6 +54,8 @@ export function TypingGame({
       totalKeystrokes: 0,
     });
     setLastPressedKey(undefined);
+    setShowLevelUpNotification(false);
+    setLevelUpData(null);
   }, [lesson.id]);
 
   // 初期状態でスペースがある場合は自動的にスキップ
@@ -142,7 +144,7 @@ export function TypingGame({
               level: levelResult.progress.level,
               title: levelResult.progress.title,
             });
-            setShowLevelUp(true);
+            setShowLevelUpNotification(true);
           }
         }
       }
@@ -198,6 +200,8 @@ export function TypingGame({
     setStats({
       totalKeystrokes: 0,
     });
+    setShowLevelUpNotification(false);
+    setLevelUpData(null);
   };
 
   const handlePageClick = () => {
@@ -229,8 +233,18 @@ export function TypingGame({
               <h1 className="font-bold text-2xl text-gray-800 sm:text-3xl">{course.title}</h1>
             </div>
 
-            <div className="flex items-center gap-4">
+            <div className="relative flex items-center gap-4">
               <PlayerLevel compact />
+
+              {/* レベルアップ通知 */}
+              {levelUpData && (
+                <LevelUpNotification
+                  isVisible={showLevelUpNotification}
+                  newLevel={levelUpData.level}
+                  newTitle={levelUpData.title}
+                  onClose={() => setShowLevelUpNotification(false)}
+                />
+              )}
               <motion.button
                 onClick={handleReset}
                 whileHover={{ scale: 1.05 }}
@@ -362,16 +376,6 @@ export function TypingGame({
           </ul>
         </motion.div>
       </main>
-
-      {/* レベルアップモーダル */}
-      {levelUpData && (
-        <LevelUpModal
-          isOpen={showLevelUp}
-          newLevel={levelUpData.level}
-          newTitle={levelUpData.title}
-          onClose={() => setShowLevelUp(false)}
-        />
-      )}
     </div>
   );
 }
