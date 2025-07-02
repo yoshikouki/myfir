@@ -20,7 +20,7 @@ export function TypingGame({ lesson, onComplete, onBack }: TypingGameProps) {
   const [stats, setStats] = useState<TypingStats>({
     totalKeystrokes: 0,
     correctKeystrokes: 0,
-    accuracy: 100,
+    accuracy: 0, // 使用しないが型のために保持
   });
   const [lastPressedKey, setLastPressedKey] = useState<string | undefined>();
 
@@ -101,10 +101,6 @@ export function TypingGame({ lesson, onComplete, onBack }: TypingGameProps) {
         }
       }
 
-      // 精度を計算
-      newStats.accuracy = Math.round(
-        (newStats.correctKeystrokes / newStats.totalKeystrokes) * 100,
-      );
       setStats(newStats);
 
       // キーを離したらリセット
@@ -154,7 +150,7 @@ export function TypingGame({ lesson, onComplete, onBack }: TypingGameProps) {
     setStats({
       totalKeystrokes: 0,
       correctKeystrokes: 0,
-      accuracy: 100,
+      accuracy: 0,
     });
   };
 
@@ -249,12 +245,8 @@ export function TypingGame({ lesson, onComplete, onBack }: TypingGameProps) {
             )}
           </div>
 
-          {/* 統計情報 */}
-          <div className="mb-6 flex justify-center gap-8">
-            <div className="text-center">
-              <p className="text-gray-600">せいかくさ</p>
-              <p className="font-bold text-2xl text-green-600">{stats.accuracy}%</p>
-            </div>
+          {/* 統計情報 - シンプルに */}
+          <div className="mb-6 flex justify-center">
             <div className="text-center">
               <p className="text-gray-600">うった もじ</p>
               <p className="font-bold text-2xl text-blue-600">{stats.totalKeystrokes}</p>
