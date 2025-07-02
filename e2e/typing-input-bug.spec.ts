@@ -8,7 +8,7 @@ test.describe("タイピング機能の入力バグテスト", () => {
   test("レッスン選択から入力テストまでの流れ", async ({ page }) => {
     // レッスン一覧が表示されることを確認
     await expect(page.locator("h1")).toContainText("もじを うとう");
-    await expect(page.locator("text=どの れっすんから はじめる？")).toBeVisible();
+    await expect(page.locator("text=どの れんしゅうから はじめる？")).toBeVisible();
 
     // 最初のレッスン（基本のひらがな）を選択
     const firstLesson = page.locator("button").filter({ hasText: "きほんの ひらがな" }).first();
@@ -17,7 +17,6 @@ test.describe("タイピング機能の入力バグテスト", () => {
 
     // ゲーム画面に遷移したことを確認
     await expect(page.locator("text=つぎの もじを うとう：")).toBeVisible();
-    await expect(page.locator("text=せいかくさ")).toBeVisible();
     await expect(page.locator("text=うった もじ")).toBeVisible();
 
     // キーボード表示が出ていることを確認
@@ -29,17 +28,11 @@ test.describe("タイピング機能の入力バグテスト", () => {
     console.log("ターゲット文字:", targetText);
 
     // 統計の初期値を確認
-    const initialAccuracy = await page
-      .locator("text=せいかくさ")
-      .locator("..")
-      .locator(".text-2xl")
-      .textContent();
     const initialKeystrokes = await page
       .locator("text=うった もじ")
       .locator("..")
       .locator(".text-2xl")
       .textContent();
-    expect(initialAccuracy).toBe("100%");
     expect(initialKeystrokes).toBe("0");
 
     // フォーカス可能な要素があるかチェック

@@ -1,10 +1,11 @@
 "use client";
 
 import { motion } from "framer-motion";
-import type { TypingLesson } from "../types";
+import type { TypingCourse, TypingLesson } from "../types";
 
 interface LessonCardProps {
   lesson: TypingLesson;
+  course: TypingCourse;
   onSelect: (lesson: TypingLesson) => void;
   isCompleted?: boolean;
 }
@@ -21,7 +22,7 @@ const levelLabels = {
   advanced: "むずかしい",
 };
 
-export function LessonCard({ lesson, onSelect, isCompleted = false }: LessonCardProps) {
+export function LessonCard({ lesson, course, onSelect, isCompleted = false }: LessonCardProps) {
   return (
     <motion.button
       onClick={() => onSelect(lesson)}
@@ -43,18 +44,22 @@ export function LessonCard({ lesson, onSelect, isCompleted = false }: LessonCard
           {/* アイコン */}
           <div className="mb-3 text-4xl">{lesson.icon}</div>
 
+          {/* コース名 */}
+          <div className="mb-2 flex items-center gap-2">
+            <span className="font-medium text-gray-500 text-sm">{course.title}</span>
+            <span className="text-gray-300">・</span>
+            <span
+              className={`inline-block rounded-full bg-gradient-to-r ${levelColors[lesson.level]} px-2 py-1 font-bold text-white text-xs`}
+            >
+              {levelLabels[lesson.level]}
+            </span>
+          </div>
+
           {/* タイトル */}
           <h3 className="mb-1 font-bold text-gray-800 text-lg">{lesson.title}</h3>
 
           {/* 説明 */}
           <p className="mb-3 text-gray-600 text-sm">{lesson.description}</p>
-
-          {/* レベル表示 */}
-          <div
-            className={`inline-block rounded-full bg-gradient-to-r ${levelColors[lesson.level]} px-3 py-1 font-bold text-white text-xs`}
-          >
-            {levelLabels[lesson.level]}
-          </div>
 
           {/* プレビューテキスト */}
           <div className="mt-3 rounded-lg bg-gray-100 p-2">

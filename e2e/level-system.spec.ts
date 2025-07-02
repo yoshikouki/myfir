@@ -20,13 +20,7 @@ test.describe("Level System", () => {
   test("should gain experience and level up in typing practice", async ({ page }) => {
     await page.goto("/typing");
 
-    // コース選択（より具体的なセレクター）
-    await page
-      .getByRole("button", { name: /どうぶつ/ })
-      .first()
-      .click();
-
-    // いぬレッスン選択
+    // いぬレッスンを直接選択（コース選択をスキップ）
     await page.getByText("いぬ").click();
 
     // タイピングゲーム開始 - 'inu'を入力
@@ -67,11 +61,7 @@ test.describe("Level System", () => {
   test("should persist level data across page refreshes", async ({ page }) => {
     await page.goto("/typing");
 
-    // 経験値を獲得
-    await page
-      .getByRole("button", { name: /どうぶつ/ })
-      .first()
-      .click();
+    // 経験値を獲得 - いぬレッスンを直接選択
     await page.getByText("いぬ").click();
 
     // 'inu'を入力して完了
@@ -104,13 +94,7 @@ test.describe("Level System", () => {
   test("should show emoji animations in typing practice", async ({ page }) => {
     await page.goto("/typing");
 
-    // どうぶつコース選択
-    await page
-      .getByRole("button", { name: /どうぶつ/ })
-      .first()
-      .click();
-
-    // いぬレッスン選択
+    // いぬレッスンを直接選択
     await page.getByText("いぬ").click();
 
     // 絵文字が表示されることを確認
