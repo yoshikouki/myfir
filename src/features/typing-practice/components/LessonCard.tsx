@@ -40,13 +40,10 @@ export function LessonCard({ lesson, course, onSelect, isCompleted = false }: Le
 
           {/* コース名 + 難易度 */}
           <h3 className="mb-2 font-bold text-2xl text-gray-800">
-            {course.title} ({levelLabels[lesson.level]})
+            {lesson.title} ({levelLabels[lesson.level]})
           </h3>
 
-          {/* レッスン名 */}
-          <p className="mb-3 font-medium text-gray-600 text-lg">{lesson.title}</p>
-
-          {/* プレビューテキスト */}
+          {/* 進捗 */}
           <p className="font-mono text-base text-gray-500">{lesson.targetText}</p>
         </div>
       </div>

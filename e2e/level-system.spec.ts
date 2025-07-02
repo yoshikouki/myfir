@@ -20,8 +20,8 @@ test.describe("Level System", () => {
   test("should gain experience and level up in typing practice", async ({ page }) => {
     await page.goto("/typing");
 
-    // いぬレッスンを直接選択（コース選択をスキップ）
-    await page.getByText("いぬ").click();
+    // どうぶつコースを選択
+    await page.getByText("どうぶつ (かんたん)").click();
 
     // タイピングゲーム開始 - 'inu'を入力
     await page.keyboard.press("i");
@@ -61,8 +61,8 @@ test.describe("Level System", () => {
   test("should persist level data across page refreshes", async ({ page }) => {
     await page.goto("/typing");
 
-    // 経験値を獲得 - いぬレッスンを直接選択
-    await page.getByText("いぬ").click();
+    // 経験値を獲得 - どうぶつコースを選択
+    await page.getByText("どうぶつ (かんたん)").click();
 
     // 'inu'を入力して完了
     await page.keyboard.press("i");
@@ -94,8 +94,8 @@ test.describe("Level System", () => {
   test("should show emoji animations in typing practice", async ({ page }) => {
     await page.goto("/typing");
 
-    // いぬレッスンを直接選択
-    await page.getByText("いぬ").click();
+    // どうぶつコースを選択
+    await page.getByText("どうぶつ (かんたん)").click();
 
     // 絵文字が表示されることを確認
     const dogEmoji = page.getByText("🐕");

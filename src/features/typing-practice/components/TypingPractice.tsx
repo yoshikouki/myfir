@@ -5,13 +5,26 @@ import { Home } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
 import { typingCourses, typingLessons } from "../data";
-import type { TypingLesson, TypingStats } from "../types";
+import type { TypingCourse, TypingLesson, TypingStats } from "../types";
 import { LessonCard } from "./LessonCard";
 import { TypingGame } from "./TypingGame";
 
 export function TypingPractice() {
   const [selectedLesson, setSelectedLesson] = useState<TypingLesson | null>(null);
   const [completedLessons, setCompletedLessons] = useState<Set<string>>(new Set());
+
+  // コース選択時に最初のレッスンまたは未完了のレッスンを開始
+  const handleCourseSelect = (course: TypingCourse) => {
+    const courseLessons = typingLessons.filter((lesson) => lesson.courseId === course.id);
+
+    // 未完了のレッスンがあればそれを選択、なければ最初のレッスン
+    const nextLesson =
+      courseLessons.find((lesson) => !completedLessons.has(lesson.id)) || courseLessons[0];
+
+    if (nextLesson) {
+      setSelectedLesson(nextLesson);
+    }
+  };
 
   const handleLessonComplete = (_stats: TypingStats) => {
     if (selectedLesson) {
@@ -88,28 +101,49 @@ export function TypingPractice() {
           <h2 className="mb-6 font-bold text-3xl text-gray-800">どれから はじめる？</h2>
         </motion.div>
 
-        {/* レッスン一覧 */}
+        {/* コース一覧 */}
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-          {typingLessons.map((lesson, index) => {
-            const course = typingCourses.find((c) => c.id === lesson.courseId);
-            if (!course) return null;
+          {typingCourses
+            .sort((a, b) => a.order - b.order)
+            .map((course, index) => {
+              const courseLessons = typingLessons.filter(
+                (lesson) => lesson.courseId === course.id,
+              );
+              const completedInCourse = courseLessons.filter((lesson) =>
+                completedLessons.has(lesson.id),
+              ).length;
+              const totalLessons = courseLessons.length;
+              const isCompleted = completedInCourse === totalLessons;
 
-            return (
-              <motion.div
-                key={lesson.id}
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ delay: index * 0.05 }}
-              >
-                <LessonCard
-                  lesson={lesson}
-                  course={course}
-                  onSelect={setSelectedLesson}
-                  isCompleted={completedLessons.has(lesson.id)}
-                />
-              </motion.div>
-            );
-          })}
+              // 各コースの代表的な難易度を決める（最初のレッスンの難易度）
+              const representativeLesson = courseLessons[0];
+              const difficulty = representativeLesson?.level || "beginner";
+
+              return (
+                <motion.div
+                  key={course.id}
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ delay: index * 0.1 }}
+                >
+                  <LessonCard
+                    lesson={{
+                      id: course.id,
+                      courseId: course.id,
+                      title: course.title,
+                      description: course.description,
+                      icon: course.icon,
+                      level: difficulty,
+                      targetText: `${completedInCourse}/${totalLessons} クリア`,
+                      romajiText: "",
+                    }}
+                    course={course}
+                    onSelect={() => handleCourseSelect(course)}
+                    isCompleted={isCompleted}
+                  />
+                </motion.div>
+              );
+            })}
         </div>
 
         {/* 全体進捗表示 */}
