@@ -23,12 +23,32 @@ export function TypingPractice() {
     setSelectedLesson(null);
   };
 
+  const handleNext = () => {
+    if (!selectedLesson) return;
+
+    const currentIndex = typingLessons.findIndex((lesson) => lesson.id === selectedLesson.id);
+    const nextIndex = currentIndex + 1;
+
+    if (nextIndex < typingLessons.length) {
+      // 次のレッスンがある場合
+      setSelectedLesson(typingLessons[nextIndex]);
+    } else {
+      // 最後のレッスンの場合は一覧に戻る
+      setSelectedLesson(null);
+    }
+  };
+
   if (selectedLesson) {
+    const currentIndex = typingLessons.findIndex((lesson) => lesson.id === selectedLesson.id);
+    const isLastLesson = currentIndex === typingLessons.length - 1;
+
     return (
       <TypingGame
         lesson={selectedLesson}
         onComplete={handleLessonComplete}
         onBack={handleBack}
+        onNext={handleNext}
+        isLastLesson={isLastLesson}
       />
     );
   }

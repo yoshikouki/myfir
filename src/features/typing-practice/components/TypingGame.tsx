@@ -10,9 +10,17 @@ interface TypingGameProps {
   lesson: TypingLesson;
   onComplete: (stats: TypingStats) => void;
   onBack: () => void;
+  onNext?: () => void; // 次のレッスンに進む関数
+  isLastLesson?: boolean; // 最後のレッスンかどうか
 }
 
-export function TypingGame({ lesson, onComplete, onBack }: TypingGameProps) {
+export function TypingGame({
+  lesson,
+  onComplete,
+  onBack,
+  onNext,
+  isLastLesson,
+}: TypingGameProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [typedText, setTypedText] = useState("");
   const [isCompleted, setIsCompleted] = useState(false);
@@ -55,7 +63,13 @@ export function TypingGame({ lesson, onComplete, onBack }: TypingGameProps) {
 
   const handleKeyPress = useCallback(
     (e: KeyboardEvent) => {
-      if (isCompleted) return;
+      // 完了時はスペースキーで次へ進む
+      if (isCompleted) {
+        if (e.key === " " && onNext) {
+          onNext();
+        }
+        return;
+      }
 
       if (!startTime) {
         setStartTime(Date.now());
@@ -111,6 +125,7 @@ export function TypingGame({ lesson, onComplete, onBack }: TypingGameProps) {
       stats,
       inputText,
       onComplete,
+      onNext,
       typedText,
     ],
   );
@@ -252,6 +267,21 @@ export function TypingGame({ lesson, onComplete, onBack }: TypingGameProps) {
               <p className="mt-2">
                 じかん: {Math.round((stats.completionTime || 0) / 1000)}びょう
               </p>
+              {onNext && (
+                <motion.div
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 1 }}
+                  className="mt-4 rounded-lg bg-white/20 p-3"
+                >
+                  <p className="font-bold text-lg">
+                    {isLastLesson ? "🎉 れんしゅう かんりょう！" : "🚀 つぎの れっすんへ！"}
+                  </p>
+                  <p className="mt-1 text-sm">
+                    {isLastLesson ? "スペース キーで もどる" : "スペース キーを おしてね"}
+                  </p>
+                </motion.div>
+              )}
             </motion.div>
           )}
         </motion.div>
