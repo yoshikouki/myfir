@@ -1,82 +1,230 @@
-import Image from "next/image";
+"use client";
+
+import { motion } from "framer-motion";
+import {
+  FileText,
+  Gamepad2,
+  Hand,
+  Image,
+  Keyboard,
+  Monitor,
+  Mouse,
+  Play,
+  Star,
+  Volume2,
+} from "lucide-react";
+import Link from "next/link";
+
+const learningContents = [
+  {
+    id: "pc-basics",
+    title: "はじめての パソコン",
+    description: "パソコンの ぶひんを まなぼう",
+    icon: Monitor,
+    href: "/pc",
+    color: "from-blue-400 to-cyan-500",
+    available: true,
+  },
+  {
+    id: "mouse-drawing",
+    title: "マウスで おえかき",
+    description: "マウスを つかって えを かこう",
+    icon: Mouse,
+    href: "/mouse-drawing",
+    color: "from-pink-400 to-purple-500",
+    available: false,
+  },
+  {
+    id: "typing",
+    title: "もじを うとう",
+    description: "キーボードで もじを いれよう",
+    icon: Keyboard,
+    href: "/typing",
+    color: "from-green-400 to-emerald-500",
+    available: false,
+  },
+  {
+    id: "drag-drop",
+    title: "おかたづけ ゲーム",
+    description: "ドラッグで ものを うごかそう",
+    icon: Hand,
+    href: "/drag-drop",
+    color: "from-yellow-400 to-orange-500",
+    available: false,
+  },
+  {
+    id: "click-game",
+    title: "どうぶつを さがそう",
+    description: "クリックで どうぶつを みつけよう",
+    icon: Gamepad2,
+    href: "/click-game",
+    color: "from-purple-400 to-pink-500",
+    available: false,
+  },
+  {
+    id: "scroll-book",
+    title: "ながい えほん",
+    description: "スクロールで ページを よもう",
+    icon: FileText,
+    href: "/scroll-book",
+    color: "from-indigo-400 to-blue-500",
+    available: false,
+  },
+  {
+    id: "sound-player",
+    title: "がっきを ならそう",
+    description: "おとや どうがを さいせい",
+    icon: Volume2,
+    href: "/sound-player",
+    color: "from-red-400 to-rose-500",
+    available: false,
+  },
+  {
+    id: "name-input",
+    title: "なまえを いれよう",
+    description: "じぶんの なまえを タイプ",
+    icon: Star,
+    href: "/name-input",
+    color: "from-cyan-400 to-teal-500",
+    available: false,
+  },
+  {
+    id: "window-control",
+    title: "おへやを きりかえよう",
+    description: "ウィンドウを つかいこなそう",
+    icon: Play,
+    href: "/window-control",
+    color: "from-orange-400 to-amber-500",
+    available: false,
+  },
+  {
+    id: "photo-gallery",
+    title: "しゃしんを せいりしよう",
+    description: "ファイルの つかいかた",
+    icon: Image,
+    href: "/photo-gallery",
+    color: "from-teal-400 to-green-500",
+    available: false,
+  },
+];
 
 export default function Home() {
   return (
-    <div className="grid min-h-screen grid-rows-[20px_1fr_20px] items-center justify-items-center gap-16 p-8 pb-20 font-[family-name:var(--font-geist-sans)] sm:p-20">
-      <main className="row-start-2 flex flex-col items-center gap-[32px] sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-center font-[family-name:var(--font-geist-mono)] text-sm/6 sm:text-left">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="rounded bg-black/[.05] px-1 py-0.5 font-[family-name:var(--font-geist-mono)] font-semibold dark:bg-white/[.06]">
-              app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">Save and see your changes instantly.</li>
-        </ol>
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50">
+      {/* ヘッダー */}
+      <motion.header
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        className="px-8 py-6"
+      >
+        <div className="mx-auto max-w-7xl">
+          <h1 className="bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-center font-bold text-4xl text-transparent sm:text-5xl">
+            MyFir へ ようこそ！
+          </h1>
+          <p className="mt-4 text-center text-gray-700 text-xl">
+            パソコンを つかって たのしく まなぼう
+          </p>
+        </div>
+      </motion.header>
 
-        <div className="flex flex-col items-center gap-4 sm:flex-row">
-          <a
-            className="flex h-10 items-center justify-center gap-2 rounded-full border border-transparent border-solid bg-foreground px-4 font-medium text-background text-sm transition-colors hover:bg-[#383838] sm:h-12 sm:w-auto sm:px-5 sm:text-base dark:hover:bg-[#ccc]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+      {/* メインコンテンツ */}
+      <main className="px-8 py-12">
+        <div className="mx-auto max-w-7xl">
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.2 }}
+            className="mb-8 text-center"
           >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="flex h-10 w-full items-center justify-center rounded-full border border-black/[.08] border-solid px-4 font-medium text-sm transition-colors hover:border-transparent hover:bg-[#f2f2f2] sm:h-12 sm:w-auto sm:px-5 sm:text-base md:w-[158px] dark:border-white/[.145] dark:hover:bg-[#1a1a1a]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+            <h2 className="font-bold text-2xl text-gray-800 sm:text-3xl">
+              どれから はじめる？
+            </h2>
+            <p className="mt-2 text-gray-600 text-lg">すきな ものを えらんで やってみよう！</p>
+          </motion.div>
+
+          {/* コンテンツグリッド */}
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {learningContents.map((content, index) => {
+              const Icon = content.icon;
+              return (
+                <motion.div
+                  key={content.id}
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ delay: 0.1 * index }}
+                  whileHover={content.available ? { scale: 1.05 } : {}}
+                  whileTap={content.available ? { scale: 0.95 } : {}}
+                  className={`group relative ${content.available ? "cursor-pointer" : "cursor-not-allowed opacity-60"}`}
+                >
+                  {content.available ? (
+                    <Link href={content.href} className="block">
+                      <div
+                        className={`rounded-3xl bg-gradient-to-br ${content.color} p-1 shadow-lg transition-shadow hover:shadow-xl`}
+                      >
+                        <div className="rounded-3xl bg-white p-8">
+                          <div className="mb-4 flex justify-center">
+                            <div
+                              className={`rounded-2xl bg-gradient-to-br ${content.color} p-4`}
+                            >
+                              <Icon className="size-12 text-white" />
+                            </div>
+                          </div>
+                          <h3 className="text-center font-bold text-gray-800 text-xl">
+                            {content.title}
+                          </h3>
+                          <p className="mt-2 text-center text-gray-600">
+                            {content.description}
+                          </p>
+                        </div>
+                      </div>
+                    </Link>
+                  ) : (
+                    <div
+                      className={`rounded-3xl bg-gradient-to-br ${content.color} p-1 opacity-50`}
+                    >
+                      <div className="rounded-3xl bg-white p-8">
+                        <div className="mb-4 flex justify-center">
+                          <div className={`rounded-2xl bg-gradient-to-br ${content.color} p-4`}>
+                            <Icon className="size-12 text-white" />
+                          </div>
+                        </div>
+                        <h3 className="text-center font-bold text-gray-800 text-xl">
+                          {content.title}
+                        </h3>
+                        <p className="mt-2 text-center text-gray-600">{content.description}</p>
+                        <p className="mt-4 text-center font-bold text-gray-500 text-sm">
+                          じゅんび ちゅう
+                        </p>
+                      </div>
+                    </div>
+                  )}
+                </motion.div>
+              );
+            })}
+          </div>
+
+          {/* 総合学習へのリンク */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.8 }}
+            className="mt-12 text-center"
           >
-            Read our docs
-          </a>
+            <div className="inline-block rounded-full bg-gradient-to-r from-purple-500 to-pink-500 p-1">
+              <div className="rounded-full bg-white px-8 py-4">
+                <p className="font-bold text-gray-800 text-lg">ぜんぶ できたら...</p>
+                <p className="mt-1 text-gray-600">「PCマスターへの みち」に ちょうせん！</p>
+              </div>
+            </div>
+          </motion.div>
         </div>
       </main>
-      <footer className="row-start-3 flex flex-wrap items-center justify-center gap-[24px]">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image aria-hidden src="/file.svg" alt="File icon" width={16} height={16} />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image aria-hidden src="/window.svg" alt="Window icon" width={16} height={16} />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image aria-hidden src="/globe.svg" alt="Globe icon" width={16} height={16} />
-          Go to nextjs.org →
-        </a>
+
+      {/* フッター */}
+      <footer className="mt-auto px-8 py-6">
+        <div className="mx-auto max-w-7xl text-center">
+          <p className="text-gray-600">おとなの ひとと いっしょに つかってね</p>
+        </div>
       </footer>
     </div>
   );
