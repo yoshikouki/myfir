@@ -210,8 +210,6 @@ export function TypingGame({ lesson, onComplete, onBack }: TypingGameProps) {
         >
           {/* ターゲットテキスト */}
           <div className="mb-6 text-center">
-            <p className="mb-2 font-bold text-gray-600 text-lg">つぎの もじを うとう：</p>
-
             {/* ひらがな表示 */}
             <div className="mb-4 font-bold text-3xl text-gray-800">{displayText}</div>
 
@@ -232,12 +230,6 @@ export function TypingGame({ lesson, onComplete, onBack }: TypingGameProps) {
               </AnimatePresence>
               <span className="text-gray-400">{inputText.slice(currentIndex + 1)}</span>
             </div>
-
-            {lesson.romajiText && (
-              <p className="mt-2 text-gray-500 text-sm">
-                ローマじで うとう: {lesson.romajiText}
-              </p>
-            )}
           </div>
 
           {/* 統計情報 - シンプルに */}
