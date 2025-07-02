@@ -320,39 +320,42 @@ export function TypingGame({
               <p className="mt-2">
                 じかん: {Math.round((stats.completionTime || 0) / 1000)}びょう
               </p>
-              {onNext && (
-                <motion.div
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 1 }}
-                  className="mt-4 rounded-lg bg-white/20 p-3"
-                >
-                  <p className="font-bold text-lg">
-                    {isLastLesson ? "🎉 れんしゅう かんりょう！" : "🚀 つぎの れっすんへ！"}
-                  </p>
-                  <p className="mt-1 text-sm">
-                    {isLastLesson ? "スペース キーで もどる" : "スペース キーを おしてね"}
-                  </p>
-                </motion.div>
-              )}
             </motion.div>
           )}
         </motion.div>
 
         {/* キーボード表示 */}
-        {!isCompleted && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.2 }}
-          >
-            <KeyboardVisualizer
-              pressedKey={lastPressedKey}
-              nextKey={currentChar}
-              highlightHand={getHandHighlight()}
-            />
-          </motion.div>
-        )}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.2 }}
+          className="relative"
+        >
+          {/* 完了時の次レッスンボタン - キーボードの上に表示 */}
+          {isCompleted && onNext && (
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.3 }} // 「よくできました！」の直後
+              className="-top-20 -translate-x-1/2 absolute left-1/2 z-10 w-full max-w-md"
+            >
+              <div className="rounded-2xl bg-gradient-to-r from-green-400 to-blue-500 p-4 text-center text-white shadow-lg">
+                <p className="font-bold text-xl">
+                  {isLastLesson ? "🎉 れんしゅう かんりょう！" : "🚀 つぎの れっすんへ！"}
+                </p>
+                <p className="mt-1 text-sm opacity-90">
+                  {isLastLesson ? "スペース キーで もどる" : "スペース キーを おしてね"}
+                </p>
+              </div>
+            </motion.div>
+          )}
+
+          <KeyboardVisualizer
+            pressedKey={lastPressedKey}
+            nextKey={isCompleted ? " " : currentChar} // 完了時はスペースキーをハイライト
+            highlightHand={isCompleted ? "both" : getHandHighlight()}
+          />
+        </motion.div>
 
         {/* ヒント */}
         <motion.div
