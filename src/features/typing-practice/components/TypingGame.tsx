@@ -1,7 +1,7 @@
 "use client";
 
 import { AnimatePresence, motion } from "framer-motion";
-import { Home, RotateCcw, Trophy } from "lucide-react";
+import { Home, RotateCcw } from "lucide-react";
 import { useCallback, useEffect, useState } from "react";
 import { LevelUpNotification } from "@/src/components/ui/LevelUpNotification";
 import { PlayerLevel } from "@/src/components/ui/PlayerLevel";
@@ -299,42 +299,6 @@ export function TypingGame({
               <span className="text-gray-400">{inputText.slice(currentIndex + 1)}</span>
             </div>
           </div>
-
-          {/* リザルト画面 - 常に領域確保 */}
-          <div className="mb-6 flex min-h-[140px] items-center justify-center">
-            <AnimatePresence mode="wait">
-              {!isCompleted ? (
-                /* 進行中の統計情報 */
-                <motion.div
-                  key="progress"
-                  initial={{ opacity: 1 }}
-                  exit={{ opacity: 0, scale: 0.9 }}
-                  className="text-center"
-                >
-                  <p className="text-gray-600">うった もじ</p>
-                  <p className="font-bold text-2xl text-blue-600">{stats.totalKeystrokes}</p>
-                </motion.div>
-              ) : (
-                /* 完了リザルト */
-                <motion.div
-                  key="result"
-                  initial={{ scale: 0, opacity: 0 }}
-                  animate={{ scale: 1, opacity: 1 }}
-                  transition={{ delay: 0.1 }}
-                  className="w-full rounded-2xl bg-gradient-to-r from-yellow-400 to-orange-500 p-6 text-center text-white"
-                >
-                  <Trophy className="mx-auto mb-2 size-12" />
-                  <p className="font-bold text-2xl">よくできました！</p>
-                  <p className="mt-2">
-                    じかん: {Math.round((stats.completionTime || 0) / 1000)}びょう
-                  </p>
-                  <p className="mt-1 text-sm opacity-90">
-                    うった もじ: {stats.totalKeystrokes}
-                  </p>
-                </motion.div>
-              )}
-            </AnimatePresence>
-          </div>
         </motion.div>
 
         {/* キーボード表示 */}
@@ -352,7 +316,7 @@ export function TypingGame({
               transition={{ delay: 0.3 }} // 「よくできました！」の直後
               className="-top-20 -translate-x-1/2 absolute left-1/2 z-10 w-full max-w-md"
             >
-              <div className="rounded-2xl bg-gradient-to-r from-green-400 to-blue-500 p-4 text-center text-white shadow-lg">
+              <div className="rounded-2xl bg-gradient-to-r from-yellow-400 to-orange-500 p-4 text-center text-white shadow-lg">
                 <p className="font-bold text-xl">
                   {isLastLesson ? "🎉 れんしゅう かんりょう！" : "🚀 つぎの れっすんへ！"}
                 </p>
