@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import { FileText, Gamepad2, Hand, Keyboard, Monitor, Mouse } from "lucide-react";
 import Link from "next/link";
+import { PlayerLevel } from "@/src/components/ui/PlayerLevel";
 
 const learningContents = [
   {
@@ -71,6 +72,11 @@ export default function Home() {
         className="px-8 py-6"
       >
         <div className="mx-auto max-w-7xl">
+          {/* プレイヤーレベル表示 */}
+          <div className="mb-6 flex justify-center">
+            <PlayerLevel compact />
+          </div>
+
           <h1 className="bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-center font-bold text-4xl text-transparent sm:text-5xl">
             MyFir へ ようこそ！
           </h1>

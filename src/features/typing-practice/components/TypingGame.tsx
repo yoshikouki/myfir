@@ -3,6 +3,9 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { Home, RotateCcw, Trophy } from "lucide-react";
 import { useCallback, useEffect, useState } from "react";
+import { LevelUpModal } from "@/src/components/ui/LevelUpModal";
+import { PlayerLevel } from "@/src/components/ui/PlayerLevel";
+import { completeActivity } from "@/src/lib/level-system";
 import type { TypingLesson, TypingStats } from "../types";
 import { KeyboardVisualizer } from "./KeyboardVisualizer";
 
@@ -29,6 +32,8 @@ export function TypingGame({
     totalKeystrokes: 0,
   });
   const [lastPressedKey, setLastPressedKey] = useState<string | undefined>();
+  const [showLevelUp, setShowLevelUp] = useState(false);
+  const [levelUpData, setLevelUpData] = useState<{ level: number; title: string } | null>(null);
 
   // ローマ字テキストがある場合はそれを使用、なければ通常のテキスト
   const inputText = lesson.romajiText || lesson.targetText;
@@ -122,6 +127,21 @@ export function TypingGame({
           const completionTime = Date.now() - (startTime || Date.now());
           newStats.completionTime = completionTime;
           onComplete(newStats);
+
+          // レベルシステム統合 - パーフェクトスコア判定
+          const isPerfect = newStats.totalKeystrokes === inputText.length;
+          const activityType = isPerfect ? "typing-perfect-score" : "typing-lesson-complete";
+
+          // 経験値獲得とレベルアップチェック
+          const levelResult = completeActivity(lesson.id, activityType);
+
+          if (levelResult.leveledUp) {
+            setLevelUpData({
+              level: levelResult.progress.level,
+              title: levelResult.progress.title,
+            });
+            setShowLevelUp(true);
+          }
         }
       }
 
@@ -140,6 +160,7 @@ export function TypingGame({
       onComplete,
       onNext,
       typedText,
+      lesson.id,
     ],
   );
 
@@ -206,15 +227,18 @@ export function TypingGame({
               <h1 className="font-bold text-2xl text-gray-800 sm:text-3xl">{lesson.title}</h1>
             </div>
 
-            <motion.button
-              onClick={handleReset}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="flex items-center gap-2 rounded-full bg-orange-500 px-6 py-3 font-bold text-white shadow-lg transition-all hover:bg-orange-600 hover:shadow-xl"
-            >
-              <RotateCcw className="size-5" />
-              <span className="hidden sm:inline">やりなおす</span>
-            </motion.button>
+            <div className="flex items-center gap-4">
+              <PlayerLevel compact />
+              <motion.button
+                onClick={handleReset}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="flex items-center gap-2 rounded-full bg-orange-500 px-6 py-3 font-bold text-white shadow-lg transition-all hover:bg-orange-600 hover:shadow-xl"
+              >
+                <RotateCcw className="size-5" />
+                <span className="hidden sm:inline">やりなおす</span>
+              </motion.button>
+            </div>
           </div>
         </div>
       </header>
@@ -336,6 +360,16 @@ export function TypingGame({
           </ul>
         </motion.div>
       </main>
+
+      {/* レベルアップモーダル */}
+      {levelUpData && (
+        <LevelUpModal
+          isOpen={showLevelUp}
+          newLevel={levelUpData.level}
+          newTitle={levelUpData.title}
+          onClose={() => setShowLevelUp(false)}
+        />
+      )}
     </div>
   );
 }
