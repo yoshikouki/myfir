@@ -10,7 +10,5 @@ export interface TypingLesson {
 
 export interface TypingStats {
   totalKeystrokes: number;
-  correctKeystrokes: number;
-  accuracy: number;
   completionTime?: number;
 }

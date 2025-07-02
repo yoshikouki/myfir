@@ -19,8 +19,6 @@ export function TypingGame({ lesson, onComplete, onBack }: TypingGameProps) {
   const [startTime, setStartTime] = useState<number | null>(null);
   const [stats, setStats] = useState<TypingStats>({
     totalKeystrokes: 0,
-    correctKeystrokes: 0,
-    accuracy: 0, // 使用しないが型のために保持
   });
   const [lastPressedKey, setLastPressedKey] = useState<string | undefined>();
 
@@ -88,7 +86,6 @@ export function TypingGame({ lesson, onComplete, onBack }: TypingGameProps) {
 
       if (key === currentChar) {
         // 正しいキー
-        newStats.correctKeystrokes++;
         setTypedText((prev) => prev + key);
         setCurrentIndex((prev) => prev + 1);
 
@@ -149,8 +146,6 @@ export function TypingGame({ lesson, onComplete, onBack }: TypingGameProps) {
     setStartTime(null);
     setStats({
       totalKeystrokes: 0,
-      correctKeystrokes: 0,
-      accuracy: 0,
     });
   };
 
