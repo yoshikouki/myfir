@@ -28,6 +28,23 @@ export function TypingGame({ lesson, onComplete, onBack }: TypingGameProps) {
   const currentChar = targetText[currentIndex];
   const progress = (currentIndex / targetText.length) * 100;
 
+  // 初期状態でスペースがある場合は自動的にスキップ
+  useEffect(() => {
+    let nextIndex = currentIndex;
+    let updatedTypedText = typedText;
+
+    // 現在位置から連続するスペースをすべてスキップ
+    while (nextIndex < targetText.length && targetText[nextIndex] === " ") {
+      updatedTypedText += " ";
+      nextIndex++;
+    }
+
+    if (nextIndex !== currentIndex) {
+      setTypedText(updatedTypedText);
+      setCurrentIndex(nextIndex);
+    }
+  }, [currentIndex, targetText, typedText]);
+
   // レッスンタイプに基づいて手のハイライトを決定
   const getHandHighlight = (): "left" | "right" | "both" | null => {
     if (lesson.id.includes("left-hand")) return "left";
@@ -46,6 +63,22 @@ export function TypingGame({ lesson, onComplete, onBack }: TypingGameProps) {
 
       const key = e.key;
       setLastPressedKey(key);
+
+      // スペース文字は自動的にスキップ（連続するスペースも処理）
+      let nextIndex = currentIndex;
+      let updatedTypedText = typedText;
+
+      // 現在位置から連続するスペースをすべてスキップ
+      while (nextIndex < targetText.length && targetText[nextIndex] === " ") {
+        updatedTypedText += " ";
+        nextIndex++;
+      }
+
+      if (nextIndex !== currentIndex) {
+        setTypedText(updatedTypedText);
+        setCurrentIndex(nextIndex);
+        return; // スペースをスキップした場合は統計を更新せずに次へ
+      }
 
       // 統計を更新
       const newStats = { ...stats };
@@ -75,7 +108,16 @@ export function TypingGame({ lesson, onComplete, onBack }: TypingGameProps) {
       // キーを離したらリセット
       setTimeout(() => setLastPressedKey(undefined), 100);
     },
-    [currentChar, currentIndex, isCompleted, startTime, stats, targetText, onComplete],
+    [
+      currentChar,
+      currentIndex,
+      isCompleted,
+      startTime,
+      stats,
+      targetText,
+      onComplete,
+      typedText,
+    ],
   );
 
   useEffect(() => {
