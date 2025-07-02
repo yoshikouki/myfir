@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { Home } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
+import { PlayerLevel } from "@/src/components/ui/PlayerLevel";
 import { typingCourses, typingLessons } from "../data";
 import type { TypingCourse, TypingLesson, TypingStats } from "../types";
 import { LessonCard } from "./LessonCard";
@@ -81,18 +82,24 @@ export function TypingPractice() {
       {/* ヘッダー */}
       <header className="bg-white shadow-lg">
         <div className="mx-auto max-w-7xl px-4 py-4">
-          <div className="flex items-center gap-4">
-            <Link href="/" className="group">
-              <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="flex items-center gap-2 rounded-full bg-gradient-to-r from-purple-500 to-pink-500 px-6 py-3 font-bold text-white shadow-lg transition-shadow hover:shadow-xl"
-              >
-                <Home className="size-5" />
-                <span>もどる</span>
-              </motion.button>
-            </Link>
-            <h1 className="font-bold text-2xl text-gray-800 sm:text-3xl">もじを うとう</h1>
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-4">
+              <Link href="/" className="group">
+                <motion.button
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  className="flex items-center gap-2 rounded-full bg-gradient-to-r from-purple-500 to-pink-500 px-6 py-3 font-bold text-white shadow-lg transition-shadow hover:shadow-xl"
+                >
+                  <Home className="size-5" />
+                  <span>もどる</span>
+                </motion.button>
+              </Link>
+              <h1 className="font-bold text-2xl text-gray-800 sm:text-3xl">もじを うとう</h1>
+            </div>
+
+            <div className="flex items-center">
+              <PlayerLevel compact />
+            </div>
           </div>
         </div>
       </header>
