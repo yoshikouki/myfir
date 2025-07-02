@@ -316,14 +316,21 @@ export function TypingGame({
               transition={{ delay: 0.3 }} // 「よくできました！」の直後
               className="-top-20 -translate-x-1/2 absolute left-1/2 z-10 w-full max-w-md"
             >
-              <div className="rounded-2xl bg-gradient-to-r from-yellow-400 to-orange-500 p-4 text-center text-white shadow-lg">
+              <motion.button
+                onClick={isLastLesson ? onBack : onNext}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="w-full rounded-2xl bg-gradient-to-r from-yellow-400 to-orange-500 p-4 text-center text-white shadow-lg transition-all hover:shadow-xl"
+              >
                 <p className="font-bold text-xl">
                   {isLastLesson ? "🎉 れんしゅう かんりょう！" : "🚀 つぎの れっすんへ！"}
                 </p>
                 <p className="mt-1 text-sm opacity-90">
-                  {isLastLesson ? "スペース キーで もどる" : "スペース キーを おしてね"}
+                  {isLastLesson
+                    ? "クリック または スペース キー"
+                    : "クリック または スペース キー"}
                 </p>
-              </div>
+              </motion.button>
             </motion.div>
           )}
 

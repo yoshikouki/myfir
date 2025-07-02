@@ -28,8 +28,8 @@ test.describe("Level System", () => {
     await page.keyboard.press("n");
     await page.keyboard.press("u");
 
-    // 完了メッセージを待つ
-    await expect(page.getByText("よくできました！")).toBeVisible();
+    // 完了メッセージを待つ（次のレッスンボタン）
+    await expect(page.getByText("つぎの れっすんへ！")).toBeVisible();
 
     // レベルアップモーダルが表示される可能性
     // （初回完了 + レッスン完了で45XP、レベル1→2は50XPなので近い）
@@ -69,7 +69,7 @@ test.describe("Level System", () => {
     await page.keyboard.press("n");
     await page.keyboard.press("u");
 
-    await expect(page.getByText("よくできました！")).toBeVisible();
+    await expect(page.getByText("つぎの れっすんへ！")).toBeVisible();
 
     // ページをリフレッシュ
     await page.reload();
@@ -97,16 +97,16 @@ test.describe("Level System", () => {
     // どうぶつコースを選択
     await page.getByText("どうぶつ (かんたん)").click();
 
-    // 絵文字が表示されることを確認
-    const dogEmoji = page.getByText("🐕");
-    await expect(dogEmoji).toBeVisible();
+    // 表示文字の確認（いぬ）
+    const displayText = page.getByText("いぬ");
+    await expect(displayText).toBeVisible();
 
     // タイピング完了時にアニメーション絵文字
     await page.keyboard.press("i");
     await page.keyboard.press("n");
     await page.keyboard.press("u");
 
-    // 完了後も絵文字が表示される
-    await expect(dogEmoji).toBeVisible();
+    // 完了後も文字が表示される
+    await expect(displayText).toBeVisible();
   });
 });

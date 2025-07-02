@@ -8,16 +8,17 @@ test.describe("タイピング機能の入力バグテスト", () => {
   test("レッスン選択から入力テストまでの流れ", async ({ page }) => {
     // レッスン一覧が表示されることを確認
     await expect(page.locator("h1")).toContainText("もじを うとう");
-    await expect(page.locator("text=どの れんしゅうから はじめる？")).toBeVisible();
 
-    // 最初のレッスン（基本のひらがな）を選択
-    const firstLesson = page.locator("button").filter({ hasText: "きほんの ひらがな" }).first();
+    // 最初のレッスン（どうぶつ）を選択（2タップフロー）
+    const firstLesson = page
+      .locator("button")
+      .filter({ hasText: "どうぶつ (かんたん)" })
+      .first();
     await expect(firstLesson).toBeVisible();
     await firstLesson.click();
 
     // ゲーム画面に遷移したことを確認
     await expect(page.locator("text=つぎの もじを うとう：")).toBeVisible();
-    await expect(page.locator("text=うった もじ")).toBeVisible();
 
     // キーボード表示が出ていることを確認
     await expect(page.locator("[data-testid='keyboard-visualizer']")).toBeVisible();

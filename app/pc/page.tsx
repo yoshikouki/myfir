@@ -96,7 +96,7 @@ export default function FirstPCPage() {
             type="button"
             onClick={goToNextStep}
             disabled={currentStep === learningSteps.length - 1}
-            className="rounded-xl bg-blue-500 px-6 py-3 font-bold text-lg text-white shadow-lg transition-colors hover:bg-blue-600 disabled:cursor-not-allowed disabled:opacity-50"
+            className="rounded-xl bg-blue-600 px-6 py-3 font-bold text-lg text-white shadow-lg transition-colors hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-50"
           >
             つぎへ →
           </button>
