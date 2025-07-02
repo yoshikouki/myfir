@@ -3,8 +3,8 @@ import { expect, test } from "@playwright/test";
 test("has title", async ({ page }) => {
   await page.goto("/");
 
-  // Expect a title "to contain" a substring.
-  await expect(page).toHaveTitle(/Create Next App/);
+  // Expect MyFir title
+  await expect(page).toHaveTitle(/MyFir/);
 });
 
 test("navigate to PC learning page", async ({ page }) => {

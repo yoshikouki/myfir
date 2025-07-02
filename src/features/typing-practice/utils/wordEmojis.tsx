@@ -1,5 +1,5 @@
-import type { TypingLesson } from "../types";
 import type { JSX } from "react";
+import type { TypingLesson } from "../types";
 
 /**
  * テキスト内の単語を絵文字付きで表示するためのユーティリティ
