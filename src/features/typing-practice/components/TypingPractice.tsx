@@ -41,22 +41,29 @@ export function TypingPractice() {
   const handleNext = () => {
     if (!selectedLesson) return;
 
-    // 全てのレッスンから次のレッスンを探す
-    const currentIndex = typingLessons.findIndex((lesson) => lesson.id === selectedLesson.id);
+    // 現在のコース内のレッスンのみから次のレッスンを探す
+    const courseLessons = typingLessons.filter(
+      (lesson) => lesson.courseId === selectedLesson.courseId,
+    );
+    const currentIndex = courseLessons.findIndex((lesson) => lesson.id === selectedLesson.id);
     const nextIndex = currentIndex + 1;
 
-    if (nextIndex < typingLessons.length) {
-      // 次のレッスンがある場合
-      setSelectedLesson(typingLessons[nextIndex]);
+    if (nextIndex < courseLessons.length) {
+      // 同じコース内に次のレッスンがある場合
+      setSelectedLesson(courseLessons[nextIndex]);
     } else {
-      // 最後のレッスンの場合はレッスン一覧に戻る
+      // コース内の最後のレッスンの場合はコース一覧に戻る
       setSelectedLesson(null);
     }
   };
 
   if (selectedLesson) {
-    const currentIndex = typingLessons.findIndex((lesson) => lesson.id === selectedLesson.id);
-    const isLastLesson = currentIndex === typingLessons.length - 1;
+    // コース内での最後のレッスンかどうかを判定
+    const courseLessons = typingLessons.filter(
+      (lesson) => lesson.courseId === selectedLesson.courseId,
+    );
+    const currentIndex = courseLessons.findIndex((lesson) => lesson.id === selectedLesson.id);
+    const isLastLesson = currentIndex === courseLessons.length - 1;
 
     return (
       <TypingGame
