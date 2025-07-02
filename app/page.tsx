@@ -59,7 +59,7 @@ const learningContents = [
     icon: Gamepad2,
     href: "/click-game",
     color: "from-purple-400 to-pink-500",
-    available: false,
+    available: true,
   },
   {
     id: "scroll-book",
