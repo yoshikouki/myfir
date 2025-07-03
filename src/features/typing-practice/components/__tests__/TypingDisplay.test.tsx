@@ -56,8 +56,8 @@ describe("TypingDisplay", () => {
       screen.queryByText((_content, element) => {
         return Boolean(
           element?.classList.contains("text-blue-600") &&
-          element?.classList.contains("underline") &&
-          element?.classList.contains("bg-yellow-100")
+            element?.classList.contains("underline") &&
+            element?.classList.contains("bg-yellow-100"),
         );
       }),
     ).not.toBeInTheDocument();
