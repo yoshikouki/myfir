@@ -2,12 +2,8 @@
 
 import { motion } from "framer-motion";
 import { Star, Zap } from "lucide-react";
-import { useCallback, useEffect, useState } from "react";
-import {
-  getPlayerProgress,
-  getProgressPercentage,
-  type PlayerProgress,
-} from "@/src/lib/level-system";
+import { usePlayerProgress } from "@/src/contexts/PlayerContext";
+import { getProgressPercentage } from "@/src/lib/level-system";
 
 interface PlayerLevelProps {
   compact?: boolean;
@@ -20,16 +16,10 @@ export function PlayerLevel({
   showTitle = true,
   className = "",
 }: PlayerLevelProps) {
-  const [progress, setProgress] = useState<PlayerProgress | null>(null);
-  const [mounted, setMounted] = useState(false);
+  const progress = usePlayerProgress();
 
-  useEffect(() => {
-    setMounted(true);
-    setProgress(getPlayerProgress());
-  }, []);
-
-  // ハイドレーション完了まで何も表示しない
-  if (!mounted || !progress) {
+  // プログレスが読み込まれるまで何も表示しない
+  if (!progress) {
     return null;
   }
 
@@ -112,29 +102,5 @@ export function PlayerLevel({
   );
 }
 
-/**
- * リアルタイムで進捗を更新するためのhook
- */
-export function usePlayerProgress() {
-  const [progress, setProgress] = useState<PlayerProgress | null>(null);
-
-  const refreshProgress = useCallback(() => {
-    setProgress(getPlayerProgress());
-  }, []);
-
-  useEffect(() => {
-    refreshProgress();
-
-    // ストレージ変更を監視
-    const handleStorageChange = (e: StorageEvent) => {
-      if (e.key === "myfir-player-progress") {
-        refreshProgress();
-      }
-    };
-
-    window.addEventListener("storage", handleStorageChange);
-    return () => window.removeEventListener("storage", handleStorageChange);
-  }, [refreshProgress]);
-
-  return { progress, refreshProgress };
-}
+// このhookはPlayerContextに移動されました
+// 新しいhookは @/src/contexts/PlayerContext から import してください

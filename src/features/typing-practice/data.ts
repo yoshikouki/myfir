@@ -9,6 +9,9 @@ export const typingCourses: TypingCourse[] = [
     icon: "🐕",
     order: 1,
     color: "from-green-400 to-blue-500",
+    targetLevel: "beginner",
+    estimatedDuration: 15,
+    tags: ["動物", "簡単", "ひらがな"],
   },
   {
     id: "family",
@@ -17,6 +20,9 @@ export const typingCourses: TypingCourse[] = [
     icon: "👨‍👩‍👧‍👦",
     order: 2,
     color: "from-pink-400 to-red-500",
+    targetLevel: "beginner",
+    estimatedDuration: 10,
+    tags: ["家族", "簡単", "ひらがな"],
   },
   {
     id: "food",
@@ -25,6 +31,9 @@ export const typingCourses: TypingCourse[] = [
     icon: "🍎",
     order: 3,
     color: "from-yellow-400 to-orange-500",
+    targetLevel: "intermediate",
+    estimatedDuration: 20,
+    tags: ["食べ物", "普通", "ひらがな"],
   },
   {
     id: "basic",
@@ -33,6 +42,9 @@ export const typingCourses: TypingCourse[] = [
     icon: "🌸",
     order: 4,
     color: "from-purple-400 to-pink-500",
+    targetLevel: "beginner",
+    estimatedDuration: 25,
+    tags: ["基本", "ひらがな", "練習"],
   },
   {
     id: "practice",
@@ -41,6 +53,9 @@ export const typingCourses: TypingCourse[] = [
     icon: "✋",
     order: 5,
     color: "from-indigo-400 to-purple-500",
+    targetLevel: "advanced",
+    estimatedDuration: 30,
+    tags: ["練習", "手の使い方", "上級"],
   },
 ];
 
@@ -55,7 +70,10 @@ export const typingLessons: TypingLesson[] = [
     level: "beginner",
     icon: "🐕",
     courseId: "animals",
+    order: 1,
     wordEmojis: { いぬ: "🐕" },
+    estimatedTime: 30,
+    tags: ["動物", "簡単"],
   },
   {
     id: "animal-cat",

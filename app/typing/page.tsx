@@ -1,5 +1,5 @@
-import { TypingPractice } from "@/src/features/typing-practice";
+import { TypingPracticeRefactored } from "@/src/features/typing-practice/components/TypingPracticeRefactored";
 
 export default function TypingPage() {
-  return <TypingPractice />;
+  return <TypingPracticeRefactored />;
 }

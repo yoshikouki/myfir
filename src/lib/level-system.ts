@@ -47,8 +47,21 @@ const LEVEL_TITLES = [
   "パソコン の おうじさま・おひめさま", // レベル10
 ];
 
+// アクティビティタイプの定義
+export type ActivityType =
+  | "typing-lesson-complete"
+  | "typing-perfect-score"
+  | "mouse-drawing-complete"
+  | "drag-drop-complete"
+  | "click-game-complete"
+  | "scroll-book-complete"
+  | "pc-basics-complete"
+  | "first-time-activity"
+  | "daily-play"
+  | "course-complete";
+
 // アクティビティごとの基本経験値
-export const ACTIVITY_EXP_REWARDS = {
+export const ACTIVITY_EXP_REWARDS: Record<ActivityType, number> = {
   "typing-lesson-complete": 15, // タイピングレッスン完了
   "typing-perfect-score": 25, // タイピング完璧クリア
   "mouse-drawing-complete": 20, // お絵かき完了
@@ -59,7 +72,7 @@ export const ACTIVITY_EXP_REWARDS = {
   "first-time-activity": 30, // 初回アクティビティボーナス
   "daily-play": 10, // 毎日プレイボーナス
   "course-complete": 50, // コース完了ボーナス
-} as const;
+};
 
 const STORAGE_KEY = "myfir-player-progress";
 
@@ -145,7 +158,7 @@ export function addExperience(reward: ExperienceReward): {
  */
 export function completeActivity(
   activityId: string,
-  experienceType: keyof typeof ACTIVITY_EXP_REWARDS,
+  experienceType: ActivityType,
 ): {
   progress: PlayerProgress;
   leveledUp: boolean;
