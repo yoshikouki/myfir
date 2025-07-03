@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Image from "next/image";
 import {
   type ComponentType,
   lazy,
@@ -123,13 +124,12 @@ export function LazyLoad({
 /**
  * 動的インポート用のヘルパー関数
  */
-export function createLazyComponent<T extends ComponentType<Record<string, unknown>>>(
-  importFn: () => Promise<{ default: T }>,
-  fallback?: ReactNode,
-) {
+export function createLazyComponent<
+  TProps extends Record<string, unknown> = Record<string, unknown>,
+>(importFn: () => Promise<{ default: ComponentType<TProps> }>, fallback?: ReactNode) {
   const LazyComponent = lazy(importFn);
 
-  return function LazyWrapper(props: any) {
+  return function LazyWrapper(props: TProps) {
     return (
       <LazyLoad fallback={fallback}>
         <LazyComponent {...props} />
@@ -145,11 +145,13 @@ interface LazyImageProps {
   src: string;
   alt: string;
   className?: string;
-  width?: number;
-  height?: number;
+  width: number;
+  height: number;
   placeholder?: string;
   onLoad?: () => void;
   onError?: () => void;
+  fill?: boolean;
+  sizes?: string;
 }
 
 export function LazyImage({
@@ -161,17 +163,22 @@ export function LazyImage({
   placeholder,
   onLoad,
   onError,
+  fill = false,
+  sizes,
 }: LazyImageProps) {
   return (
-    <img
+    <Image
       src={src}
       alt={alt}
+      width={fill ? undefined : width}
+      height={fill ? undefined : height}
+      fill={fill}
+      sizes={sizes}
       className={className}
-      width={width}
-      height={height}
-      loading="lazy"
       onLoad={onLoad}
       onError={onError}
+      placeholder={placeholder ? "blur" : undefined}
+      blurDataURL={placeholder}
       style={{
         backgroundColor: placeholder || "#f3f4f6",
       }}
