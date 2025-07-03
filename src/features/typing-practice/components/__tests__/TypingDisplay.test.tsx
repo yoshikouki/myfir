@@ -51,8 +51,16 @@ describe("TypingDisplay", () => {
       <TypingDisplay {...defaultProps} typedText="inu" currentIndex={3} isCompleted={true} />,
     );
 
-    // 現在文字のハイライトが表示されないことを確認
-    expect(screen.queryByText("i")).not.toHaveClass("text-blue-600");
+    // 完了時は現在文字のハイライト要素が存在しないことを確認
+    expect(
+      screen.queryByText((_content, element) => {
+        return Boolean(
+          element?.classList.contains("text-blue-600") &&
+          element?.classList.contains("underline") &&
+          element?.classList.contains("bg-yellow-100")
+        );
+      }),
+    ).not.toBeInTheDocument();
   });
 
   it("長いテキストも正しく表示する", () => {
@@ -68,9 +76,16 @@ describe("TypingDisplay", () => {
     );
 
     expect(screen.getByText("いぬ と ねこ")).toBeInTheDocument();
-    expect(screen.getByText("inu ")).toHaveClass("text-green-600");
-    expect(screen.getByText("t")).toHaveClass("text-blue-600");
-    expect(screen.getByText("o neko")).toHaveClass("text-gray-400");
+
+    // CSSクラスで要素を直接確認（実際のレンダリング結果に合わせる）
+    const typedElement = document.querySelector(".text-green-600");
+    expect(typedElement?.textContent).toBe("inu "); // textContentで直接確認
+
+    const currentElement = document.querySelector(".text-blue-600");
+    expect(currentElement).toHaveTextContent("t");
+
+    const remainingElement = document.querySelector(".text-gray-400");
+    expect(remainingElement).toHaveTextContent("o neko");
   });
 
   it("空の入力でも正しく表示する", () => {

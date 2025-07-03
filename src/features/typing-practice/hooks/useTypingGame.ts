@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { usePlayerActions } from "@/src/contexts/PlayerContext";
 import type { TypingLesson, TypingStats } from "../types";
 
@@ -20,6 +20,7 @@ interface TypingGameState {
 
 export function useTypingGame({ lesson, onComplete, onNext, onLevelUp }: UseTypingGameOptions) {
   const { completeActivity } = usePlayerActions();
+  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   const [state, setState] = useState<TypingGameState>({
     currentIndex: 0,
@@ -158,8 +159,12 @@ export function useTypingGame({ lesson, onComplete, onNext, onLevelUp }: UseTypi
       });
 
       // キー表示をリセット
-      setTimeout(() => {
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current);
+      }
+      timeoutRef.current = setTimeout(() => {
         setState((prevState) => ({ ...prevState, lastPressedKey: undefined }));
+        timeoutRef.current = null;
       }, 100);
     },
     [currentChar, inputText, onNext, handleCompletion],
@@ -180,6 +185,15 @@ export function useTypingGame({ lesson, onComplete, onNext, onLevelUp }: UseTypi
   // キー押下の設定
   const setLastPressedKey = useCallback((key: string) => {
     setState((prevState) => ({ ...prevState, lastPressedKey: key }));
+  }, []);
+
+  // Cleanup on unmount
+  useEffect(() => {
+    return () => {
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current);
+      }
+    };
   }, []);
 
   return {
